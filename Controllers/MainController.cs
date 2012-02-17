@@ -13,8 +13,6 @@ namespace Templater.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Title = "Главная";
-
             return View();
         }
     }
