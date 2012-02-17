@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Шаблонизатор | @ViewBag.Title</title>
+
+    <!-- Подключаем CSS -->
+    <link href="@Url.Content("~/Content/libs/bootstrap.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Подключаем библиотеки -->
+    <script src="@Url.Content("~/Scripts/libs/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/libs/bootstrap.min.js")" type="text/javascript"></script>
+
+    <!-- Подключаем ядро -->
+    <script src="@Url.Content("~/Scripts/core.js")" type="text/javascript"></script>
+    <script>
+        $(document).ready(Templater.initialize);
+    </script>
+</head>
+
+<body>
+    @RenderBody()
+</body>
+</html>
