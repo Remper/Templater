@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Templater.Models;
+using Templater.Adapters;
 using System.Web.Security;
+using System.Data;
 
 namespace Templater.Controllers
 {

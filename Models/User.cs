@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Templater.Adapters;
 
 namespace Templater.Models
 {
@@ -10,6 +11,11 @@ namespace Templater.Models
         private string _Email;
         private string _WorkGroup;
         private bool _AuthState;
+
+        public User()
+        {
+            
+        }
 
         public string Email { get { return this._Email; } }
         public string WorkGroup { get { return this._WorkGroup; } }
