@@ -6,15 +6,15 @@ using System.Web.Mvc;
 
 namespace Templater.Controllers
 {
-    //TODO: Переименовать в шаблонизатор
-    public class MainController : Controller
+    public class CrawlerController : Controller
     {
         //
-        // GET: /Main/
+        // GET: /Crawler/
 
         public ActionResult Index()
         {
             return View();
         }
+
     }
 }
