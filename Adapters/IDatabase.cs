@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 
 namespace Templater.Adapters
 {
@@ -17,7 +18,7 @@ namespace Templater.Adapters
         /// </summary>
         /// <param name="email">E-mail адрес пользователя</param>
         /// <param name="password">Пароль</param>
-        /// <returns>Результат проверки: true в случае наличия в базе и соответствия пароля, false в противном случае</returns>
-        bool CheckUserCredentials(String email, String password);
+        /// <returns>Результат проверки</returns>
+        DataTable GetUserByCredentials(String email, String password);
     }
 }

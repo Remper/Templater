@@ -22,11 +22,13 @@ namespace Templater.Controllers
         [ActionName("Index")]
         public ActionResult LogOn()
         {
-            User curUser = new User("remper@me.com");
-            curUser.Authorize("testtest");
-            Session["User"] = curUser;
-            FormsAuthentication.SetAuthCookie(curUser.Email, true);
-            return Json(Session["User"], JsonRequestBehavior.AllowGet);
+            User curUser = new User(Request["Email"]);
+            if (curUser.Authorize(Request["Password"]))
+            {
+                Session["User"] = curUser;
+                FormsAuthentication.SetAuthCookie(curUser.Email, true);
+            }
+            return Json(curUser, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
+using MySql.Data.MySqlClient;
+using System.Data;
 using Templater.Adapters;
 
 namespace Templater.Models
@@ -12,7 +15,7 @@ namespace Templater.Models
     public class User
     {
         private string _Email;
-        private int UserId;
+        private int _UserId;
         private string _WorkGroup;
         private int _WorkGroupId;
         private bool _AuthState;
@@ -26,6 +29,7 @@ namespace Templater.Models
             this._Email = Email;
             this._AuthState = false;
             this._WorkGroupId = 0;
+            this._UserId = 0;
         }
 
         public string Email { get { return this._Email; } }
@@ -42,6 +46,15 @@ namespace Templater.Models
         {
             if (this._AuthState)
                 return true;
+
+            MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
+            DataTable result = database.GetUserByCredentials(this.Email, password);
+            if (result.Rows.Count != 1)
+                return false;
+
+            this._UserId = (int)result.Rows[0].ItemArray[0];
+            this._WorkGroupId = (int)result.Rows[0].ItemArray[3];
+            this._AuthState = true;
 
             return true;
         }

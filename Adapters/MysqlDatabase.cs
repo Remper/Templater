@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Reflection;
 using MySql.Data.MySqlClient;
+using Templater.Misc;
 
 //TODO: А исключения кто ловить будет?
 namespace Templater.Adapters
@@ -22,9 +23,17 @@ namespace Templater.Adapters
             this.connection.Open();
         }
 
-        public bool CheckUserCredentials(String email, String password)
+        public DataTable GetUserByCredentials(String email, String password)
         {
-            return true;
+            String query = "SELECT * FROM users WHERE email = @email AND password = @password";
+            Array parameters = new[] {
+                new DBParam ("@email", MySqlDbType.VarChar, email),
+                new DBParam ("@password", MySqlDbType.VarChar, password)
+            };
+
+            DataTable result = this.ExecuteQuery(query, parameters);
+
+            return result;
         }
 
         /// <summary>
@@ -33,7 +42,7 @@ namespace Templater.Adapters
         /// <param name="query">Запрос с плейсхолдерами для данных</param>
         /// <param name="parameters">Объект с данными к запросу</param>
         /// <returns>Таблица с результатом</returns>
-        private DataTable ExecuteQuery(String query, Object parameters = null)
+        private DataTable ExecuteQuery(String query, Array parameters = null)
         {
             //Сюда будем записывать результат
             DataTable result = new DataTable();
@@ -42,10 +51,10 @@ namespace Templater.Adapters
             //Извлекаем свойства из объекта и заполняем ими запрос
             if (parameters != null)
             {
-                FieldInfo[] finfo = parameters.GetType().GetFields();
-                foreach (FieldInfo field in finfo)
+                foreach (DBParam field in parameters)
                 {
-                    command.Parameters.Add(String.Concat(@"@", field.Name), field.GetValue(parameters));
+                    command.Parameters.Add(field.Name, field.Type);
+                    command.Parameters[field.Name].Value = field.Value;
                 }
             }
             //Выполняем запрос
