@@ -36,5 +36,10 @@ namespace Templater
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }
+
+        private void HandleUser()
+        {
+
+        }
     }
 }

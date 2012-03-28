@@ -22,8 +22,8 @@ namespace Templater.Controllers
         [ActionName("Index")]
         public ActionResult LogOn()
         {
-            User curUser = new User();
-            curUser.Authorize("test", "test");
+            User curUser = new User("remper@me.com");
+            curUser.Authorize("testtest");
             Session["User"] = curUser;
             FormsAuthentication.SetAuthCookie(curUser.Email, true);
             return Json(Session["User"], JsonRequestBehavior.AllowGet);

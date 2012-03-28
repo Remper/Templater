@@ -83,6 +83,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\core.js" />
     <Content Include="Scripts\libs\bootstrap-collapse.js" />
+    <Content Include="Scripts\libs\bootstrap-modal.js" />
     <Content Include="Scripts\libs\bootstrap-tab.js" />
     <Content Include="Scripts\libs\bootstrap.min.js" />
     <Content Include="Scripts\libs\jquery-1.7.1.min.js" />
@@ -98,7 +99,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Shared\AuthDialog.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

@@ -13,15 +13,21 @@
     <script src="@Url.Content("~/Scripts/libs/bootstrap.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/libs/bootstrap-collapse.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/libs/bootstrap-tab.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/libs/bootstrap-modal.js")" type="text/javascript"></script>
 
     <!-- Подключаем ядро -->
     <script src="@Url.Content("~/Scripts/core.js")" type="text/javascript"></script>
-    <script>
-        $(document).ready(Templater.initialize);
+    <script type="text/javascript">
+        var User = {
+            AuthState: @(User.Identity.IsAuthenticated ? "true" : "false"),
+            Email: @(User.Identity.IsAuthenticated ? User.Identity.Name : "null")
+        }
+        $(document).ready(Kurs.initialize);
     </script>
 </head>
 
 <body>
+    @Html.Partial("AuthDialog")
     @RenderBody()
 </body>
 </html>
