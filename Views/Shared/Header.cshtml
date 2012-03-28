@@ -1,0 +1,35 @@
+﻿<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <a class="brand" href="#">
+                Курсач
+            </a>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li id="nav-main">
+                        <a href="/Main">Шаблонизатор</a>
+                    </li>
+                    <li id="nav-crawler"><a href="/Crawler">Кроулер</a></li>
+                    <li id="nav-workgroup"><a href="/Workgroup">Рабочая группа</a></li>
+                </ul>
+                <div class="login-info pull-right">
+                    @if(User.Identity.IsAuthenticated) {
+                        @:<span style="display: block; float: left; padding: 5px 6px 0 0">@User.Identity.Name</span>
+                        @:<a class="btn btn-mini" href="#" id="auth-logout"><i class="icon-off"></i> Выйти</a>
+                    }
+                    else
+                    {
+                        @:<span style="display: block; float: left; padding: 5px 6px 0 0">Вы не зашли</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

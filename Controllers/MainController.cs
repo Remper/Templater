@@ -16,5 +16,26 @@ namespace Templater.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult New()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Learn()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Edit()
+        {
+            return View();
+        }
     }
 }

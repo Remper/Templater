@@ -20,8 +20,9 @@
     <script type="text/javascript">
         var User = {
             AuthState: @(User.Identity.IsAuthenticated ? "true" : "false"),
-            Email: @(User.Identity.IsAuthenticated ? User.Identity.Name : "null")
+            Email: "@(User.Identity.IsAuthenticated ? User.Identity.Name : "null")"
         }
+
         $(document).ready(Kurs.initialize);
     </script>
 </head>

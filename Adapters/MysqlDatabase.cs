@@ -26,6 +26,7 @@ namespace Templater.Adapters
         {
             return true;
         }
+
         /// <summary>
         /// Для запроса query и параметров parameters выполняет запрос и заполняет его в таблицу
         /// </summary>
