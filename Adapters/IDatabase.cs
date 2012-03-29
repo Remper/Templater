@@ -20,5 +20,12 @@ namespace Templater.Adapters
         /// <param name="password">Пароль</param>
         /// <returns>Результат проверки</returns>
         DataTable GetUserByCredentials(String email, String password);
+
+        /// <summary>
+        /// Получить информацию о всех шаблонах пользователя и его рабочей группы
+        /// </summary>
+        /// <param name="UserID">ID пользователя</param>
+        /// <returns>Информация о шаблонах</returns>
+        DataTable GetTemplates(int UserID);
     }
 }

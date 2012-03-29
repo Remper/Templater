@@ -23,10 +23,24 @@ namespace Templater.Adapters
             this.connection.Open();
         }
 
+        public DataTable GetTemplates(int UserID)
+        {
+            String query = "SELECT a.id, b.email, a.website, a.name FROM templates AS a"+ 
+                    "INNER JOIN users AS b ON a.owner = b.id"+
+                    "WHERE b.workgroup = (SELECT workgroup FROM users WHERE id = @UserID);";
+            DBParam[] parameters = new[] {
+                new DBParam ("@UserID", MySqlDbType.Int32, UserID)
+            };
+
+            DataTable result = this.ExecuteQuery(query, parameters);
+
+            return result;
+        }
+
         public DataTable GetUserByCredentials(String email, String password)
         {
             String query = "SELECT * FROM users WHERE email = @email AND password = @password";
-            Array parameters = new[] {
+            DBParam[] parameters = new[] {
                 new DBParam ("@email", MySqlDbType.VarChar, email),
                 new DBParam ("@password", MySqlDbType.VarChar, password)
             };
@@ -42,7 +56,7 @@ namespace Templater.Adapters
         /// <param name="query">Запрос с плейсхолдерами для данных</param>
         /// <param name="parameters">Объект с данными к запросу</param>
         /// <returns>Таблица с результатом</returns>
-        private DataTable ExecuteQuery(String query, Array parameters = null)
+        private DataTable ExecuteQuery(String query, DBParam[] parameters = null)
         {
             //Сюда будем записывать результат
             DataTable result = new DataTable();
