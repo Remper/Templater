@@ -105,6 +105,11 @@ var Kurs = {
             if (path == "")
                 path = "main";
             Kurs.Context.setValues(path, hash);
+        },
+
+        appendLoader: function (object) {
+            var placeholder = $("<div align=\"center\" style=\"margin-top: 200px\"><img src=\"/Content/img/loader.gif\" /></div>");
+            placeholder.appendTo(object);
         }
     },
 

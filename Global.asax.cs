@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace Templater
 {
@@ -35,11 +36,16 @@ namespace Templater
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            HandleUser();
         }
 
         private void HandleUser()
         {
-
+            if (HttpContext.Current.Session == null)
+            {
+                FormsAuthentication.SignOut();
+                FormsAuthentication.RedirectToLoginPage();
+            }
         }
     }
 }

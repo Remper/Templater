@@ -25,8 +25,8 @@ namespace Templater.Controllers
             User curUser = new User(Request["Email"]);
             if (curUser.Authorize(Request["Password"]))
             {
-                Session["User"] = curUser;
                 FormsAuthentication.SetAuthCookie(curUser.Email, true);
+                Session["User"] = curUser;
             }
             return Json(curUser, JsonRequestBehavior.AllowGet);
         }

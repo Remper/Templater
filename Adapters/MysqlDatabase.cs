@@ -6,6 +6,7 @@ using System.Data;
 using System.Reflection;
 using MySql.Data.MySqlClient;
 using Templater.Misc;
+using Templater.Models;
 
 //TODO: А исключения кто ловить будет?
 namespace Templater.Adapters
@@ -23,21 +24,27 @@ namespace Templater.Adapters
             this.connection.Open();
         }
 
-        public DataTable GetTemplates(int UserID)
+        public Template[] GetTemplates(int UserID)
         {
-            String query = "SELECT a.id, b.email, a.website, a.name FROM templates AS a"+ 
-                    "INNER JOIN users AS b ON a.owner = b.id"+
-                    "WHERE b.workgroup = (SELECT workgroup FROM users WHERE id = @UserID);";
+            String query = "SELECT a.id, b.email, a.website, a.name, b.workgroup FROM templates AS a"+ 
+                    " INNER JOIN users AS b ON a.owner = b.id"+
+                    " WHERE b.workgroup = (SELECT workgroup FROM users WHERE id = @UserID);";
             DBParam[] parameters = new[] {
                 new DBParam ("@UserID", MySqlDbType.Int32, UserID)
             };
 
-            DataTable result = this.ExecuteQuery(query, parameters);
+            List<Object[]> result = this.ExecuteQuery(query, parameters);
+            Template[] rows = new Template[result.Count];
+            for (int i = 0; i < result.Count; i++)
+            {
+                Object[] row = result[i];
+                rows[i] = new Template((int)row[0], (int)row[4], (string)row[1], (string)row[2], (string)row[3]);
+            }
 
-            return result;
+            return rows;
         }
 
-        public DataTable GetUserByCredentials(String email, String password)
+        public List<Object[]> GetUserByCredentials(String email, String password)
         {
             String query = "SELECT * FROM users WHERE email = @email AND password = @password";
             DBParam[] parameters = new[] {
@@ -45,7 +52,7 @@ namespace Templater.Adapters
                 new DBParam ("@password", MySqlDbType.VarChar, password)
             };
 
-            DataTable result = this.ExecuteQuery(query, parameters);
+            List<Object[]> result = this.ExecuteQuery(query, parameters);
 
             return result;
         }
@@ -56,10 +63,8 @@ namespace Templater.Adapters
         /// <param name="query">Запрос с плейсхолдерами для данных</param>
         /// <param name="parameters">Объект с данными к запросу</param>
         /// <returns>Таблица с результатом</returns>
-        private DataTable ExecuteQuery(String query, DBParam[] parameters = null)
+        private List<Object[]> ExecuteQuery(String query, DBParam[] parameters = null)
         {
-            //Сюда будем записывать результат
-            DataTable result = new DataTable();
             //Инициализируем команду
             MySqlCommand command = new MySqlCommand(query, connection);
             //Извлекаем свойства из объекта и заполняем ими запрос
@@ -74,7 +79,14 @@ namespace Templater.Adapters
             //Выполняем запрос
             MySqlDataReader reader = command.ExecuteReader();
             //Заполняем таблицу данными
-            result.Load(reader);
+            List<Object[]> result = new List<Object[]>();
+            while (reader.Read())
+            {
+                Object[] temp = new Object[reader.FieldCount];
+                for(int i = 0; i < reader.FieldCount; i++)
+                    temp[i] = reader[i];
+                result.Add(temp);
+            }
 
             return result;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using Templater.Models;
 
 namespace Templater.Adapters
 {
@@ -19,13 +20,13 @@ namespace Templater.Adapters
         /// <param name="email">E-mail адрес пользователя</param>
         /// <param name="password">Пароль</param>
         /// <returns>Результат проверки</returns>
-        DataTable GetUserByCredentials(String email, String password);
+        List<Object[]> GetUserByCredentials(String email, String password);
 
         /// <summary>
         /// Получить информацию о всех шаблонах пользователя и его рабочей группы
         /// </summary>
         /// <param name="UserID">ID пользователя</param>
         /// <returns>Информация о шаблонах</returns>
-        DataTable GetTemplates(int UserID);
+        Template[] GetTemplates(int UserID);
     }
 }

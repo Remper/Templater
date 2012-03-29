@@ -34,6 +34,7 @@ namespace Templater.Models
 
         public string Email { get { return this._Email; } }
         public string WorkGroup { get { return this._WorkGroupId == 0 ? "none" : this._WorkGroup; } }
+        public int UserId { get { return this._UserId; } }
         public bool AuthState { get { return this._AuthState; } }
 
         /// <summary>
@@ -48,12 +49,12 @@ namespace Templater.Models
                 return true;
 
             MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
-            DataTable result = database.GetUserByCredentials(this.Email, password);
-            if (result.Rows.Count != 1)
+            List<Object[]> result = database.GetUserByCredentials(this.Email, password);
+            if (result.Count != 1)
                 return false;
 
-            this._UserId = (int)result.Rows[0].ItemArray[0];
-            this._WorkGroupId = (int)result.Rows[0].ItemArray[3];
+            this._UserId = (int)result[0][0];
+            this._WorkGroupId = (int)result[0][3];
             this._AuthState = true;
 
             return true;

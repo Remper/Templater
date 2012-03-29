@@ -77,6 +77,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\img\loader.gif" />
     <Content Include="Content\libs\bootstrap-responsive.css" />
     <Content Include="Content\libs\bootstrap.css" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
@@ -112,7 +113,9 @@
   <ItemGroup>
     <Content Include="Views\Main\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Main\List.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Header.cshtml" />
   </ItemGroup>
