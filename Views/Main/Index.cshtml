@@ -11,19 +11,42 @@
         </h1>
     </div>
     <div class="row">
-        <div class="span12">
-            <div class="tabbable tabs-left">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#new" data-toggle="tab">Новый шаблон</a></li>
-                    <li><a href="#learn" data-toggle="tab">Обучить</a></li>
-                    <li><a href="#edit" data-toggle="tab">Редактировать</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="new">...</div>
-                    <div class="tab-pane" id="learn">...</div>
-                    <div class="tab-pane" id="edit">...</div>
-                </div>
-            </div>
+        <div class="span3">
+            <a class="btn btn-large btn-success" href="#new"><i class="icon-plus icon-white"></i> Создать новый</a>
+        </div>
+        <div class="span9">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Имя</th>
+                        <th>Вебсайт</th>
+                        <th>Владелец</th>
+                        <th style="width: 80px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Test</td>
+                        <td>http://ria.ru</td>
+                        <td>Remper</td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Правка
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#edit"><i class="icon-edit"></i> Редактировать исходник</a></li>
+                                    <li><a href="#learn"><i class="icon-check"></i> Обучить</a></li>
+                                    <li><a href="#"><i class="icon-trash"></i> Удалить</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

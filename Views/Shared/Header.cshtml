@@ -19,15 +19,12 @@
                     <li id="nav-crawler"><a href="/Crawler">Кроулер</a></li>
                     <li id="nav-workgroup"><a href="/Workgroup">Рабочая группа</a></li>
                 </ul>
-                <div class="login-info pull-right">
-                    @if(User.Identity.IsAuthenticated) {
-                        @:<span style="display: block; float: left; padding: 5px 6px 0 0">@User.Identity.Name</span>
-                        @:<a class="btn btn-mini" href="#" id="auth-logout"><i class="icon-off"></i> Выйти</a>
-                    }
-                    else
-                    {
-                        @:<span style="display: block; float: left; padding: 5px 6px 0 0">Вы не зашли</span>
-                    }
+                <div class="login-info pull-right" id="authed">
+                    <span id="authed-email" style="display: block; float: left; padding: 5px 6px 0 0">@(User.Identity.IsAuthenticated ? User.Identity.Name : "")</span>
+                    <a class="btn btn-mini" href="#" id="auth-logout"><i class="icon-off"></i> Выйти</a>
+                </div>
+                <div class="login-info pull-right" id="deauthed">
+                    <span style="display: block; float: left; padding: 5px 6px 0 0">Вы не зашли</span>
                 </div>
             </div>
         </div>

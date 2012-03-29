@@ -13,8 +13,10 @@ var Kurs = {
 
             //Вешаем обработчик на нажатие кнопки авторизации
             $('#auth-login').click(Kurs.authorize);
+            $('#authed').hide();
         } else {
             $('#auth-logout').click(Kurs.logout);
+            $('#deauthed').hide();
         }
 
         //Заполняем контекст
@@ -46,8 +48,18 @@ var Kurs = {
     /**
     * Поведение приложения при успехе авторизации
     */
-    auth_succ: function () {
+    auth_succ: function (data) {
+        if (data.AuthState) {
+            User.AuthState = true;
+            User.Email = data.Email;
 
+            $('#authDialog').modal('hide');
+            $('#authed-email').html(User.Email);
+            $('#authed').show();
+            $('#deauthed').hide();
+        } else {
+            $("#auth-fail").alert().show();
+        }
     },
 
     /**
