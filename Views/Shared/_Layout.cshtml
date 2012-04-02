@@ -17,6 +17,8 @@
 
     <!-- Подключаем ядро -->
     <script src="@Url.Content("~/Scripts/core.js")" type="text/javascript"></script>
+    <!-- Подключаем управляющий скрипт в зависимости от местоположения -->
+    <script src="@Url.Content("~/Scripts/"+ViewBag.Controller+".js")" type="text/javascript"></script>
     <script type="text/javascript">
         var User = {
             AuthState: @(User.Identity.IsAuthenticated ? "true" : "false"),

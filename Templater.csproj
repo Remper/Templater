@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Scripts\crawler.js</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
@@ -75,6 +78,9 @@
     <Compile Include="Models\Template.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\crawler.js" />
+    <Content Include="Scripts\workgroup.js" />
+    <Content Include="Scripts\templater.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\img\loader.gif" />
@@ -85,12 +91,10 @@
     <Content Include="Content\main.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\core.js" />
-    <Content Include="Scripts\libs\bootstrap-alert.js" />
     <Content Include="Scripts\libs\bootstrap-collapse.js" />
     <Content Include="Scripts\libs\bootstrap-modal.js" />
     <Content Include="Scripts\libs\bootstrap-tab.js" />
     <Content Include="Scripts\libs\bootstrap.js" />
-    <Content Include="Scripts\libs\bootstrap.min.js" />
     <Content Include="Scripts\libs\jquery-1.7.1.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

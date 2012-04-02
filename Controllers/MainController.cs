@@ -17,6 +17,7 @@ namespace Templater.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Controller = "templater";
             return View();
         }
 
