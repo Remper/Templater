@@ -36,16 +36,6 @@ namespace Templater
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            HandleUser();
-        }
-
-        private void HandleUser()
-        {
-            if (HttpContext.Current.Session == null)
-            {
-                FormsAuthentication.SignOut();
-                FormsAuthentication.RedirectToLoginPage();
-            }
         }
     }
 }

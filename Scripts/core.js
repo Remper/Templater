@@ -4,6 +4,9 @@
 var Kurs = {
     //Функция инициализации системы
     initialize: function () {
+        //Заполняем контекст
+        Kurs.Util.parseContext();
+
         if (!User.AuthState) {
             //Если пользователь не авторизирован, показываем ему окно входа во весь экран
             $('#authDialog').modal({
@@ -17,13 +20,16 @@ var Kurs = {
         } else {
             $('#auth-logout').click(Kurs.logout);
             $('#deauthed').hide();
+            Kurs.loadPage();
         }
-
-        //Заполняем контекст
-        Kurs.Util.parseContext();
 
         //Указываем активную вкладку
         $('#nav-' + Kurs.Context.controller).addClass("active");
+    },
+
+    loadPage: function () {
+        //Инициализируем страницу
+        Controller.init();
     },
 
     authorize: function () {
@@ -57,6 +63,8 @@ var Kurs = {
             $('#authed-email').html(User.Email);
             $('#authed').show();
             $('#deauthed').hide();
+
+            Kurs.loadPage();
         } else {
             $("#auth-fail").alert().show();
         }

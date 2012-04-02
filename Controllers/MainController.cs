@@ -6,6 +6,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Templater.Adapters;
 using Templater.Models;
+using System.Web.Security;
 
 namespace Templater.Controllers
 {
