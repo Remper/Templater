@@ -131,10 +131,12 @@ var Kurs = {
     Context: {
         controller: null,
         subpage: null,
+        tracker: function () { },
 
         setValues: function (controller, subpage) {
             this.controller = controller;
             this.subpage = subpage;
+            this.tracker();
         }
     }
 }
