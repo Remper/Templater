@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using MvcFilters.Infrastructure.Filters;
 
 namespace Templater
 {
@@ -16,6 +17,7 @@ namespace Templater
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new AuthorizationAttribute());
         }
 
         public static void RegisterRoutes(RouteCollection routes)

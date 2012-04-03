@@ -6,6 +6,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Templater.Adapters;
 using Templater.Models;
+using Templater.Misc;
 using System.Web.Security;
 
 namespace Templater.Controllers
@@ -30,9 +31,11 @@ namespace Templater.Controllers
             MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
             //Получаем список шаблонов для текущего пользователя
             Template[] templates = database.GetTemplates(((User)Session["User"]).UserId);
+            //Рендерим 
+            String data = Render.RenderView(this, "List", templates);
 
-            //Отправляем модель на отрисовку
-            return View(templates);
+            //Отправляем ответ
+            return Json(new { result = true, data = data }, JsonRequestBehavior.AllowGet); ;
         }
 
         [HttpGet]

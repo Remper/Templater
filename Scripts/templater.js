@@ -9,10 +9,14 @@ Controller = {
     },
 
     loadSucc: function (data) {
-        $("#content").html(data);
+        if (data.result)
+            $("#content").html(data.data);
+        else {
+            Controller.loadFail("result");
+        }
     },
 
-    loadFail: function () {
+    loadFail: function (result) {
         alert("Fail");
     }
 }

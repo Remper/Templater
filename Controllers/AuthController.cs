@@ -35,7 +35,8 @@ namespace Templater.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            return Json(Session["User"], JsonRequestBehavior.AllowGet);
+            Session.Abandon();
+            return Json(new {result = true}, JsonRequestBehavior.AllowGet);
         }
     }
 }
