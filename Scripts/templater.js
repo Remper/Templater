@@ -5,6 +5,7 @@ Controller = {
     //Вызывается при загрузке страницы
     init: function () {
         //Загружаем базовый контент для страницы
+        
         Kurs.Util.sendRequest("Main", "List", {}, Controller.loadSucc, Controller.loadFail);
     },
 

@@ -81,6 +81,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Scripts\crawler.js" />
+    <Content Include="Scripts\libs\jquery.hashchange.min.js" />
     <Content Include="Scripts\workgroup.js" />
     <Content Include="Scripts\templater.js" />
   </ItemGroup>

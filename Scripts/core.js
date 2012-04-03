@@ -25,6 +25,9 @@ var Kurs = {
 
         //Указываем активную вкладку
         $('#nav-' + Kurs.Context.controller).addClass("active");
+
+        //Вешаем обработчик смены хеша
+        $(window).hashchange(Kurs.Util.stateTracker);
     },
 
     loadPage: function () {
@@ -118,6 +121,10 @@ var Kurs = {
         appendLoader: function (object) {
             var placeholder = $("<div align=\"center\" style=\"margin-top: 200px\"><img src=\"/Content/img/loader.gif\" /></div>");
             placeholder.appendTo(object);
+        },
+
+        stateTracker: function () {
+            Kurs.Util.parseContext();
         }
     },
 
