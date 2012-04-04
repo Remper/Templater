@@ -86,19 +86,23 @@ var Kurs = {
     */
     Util: {
         /**
-        * Послать GET AJAX запрос к определённому контроллеру и экшену
+        * Послать GET или POST AJAX запрос к определённому контроллеру и экшену
         * 
         * @param string controller Контроллер
         * @param string action Экшен
         * @param Object data Объект параметров для вставки в запрос
         * @param Function callback_succ Коллбэк при удачном ответе
         * @param Function callback_fail Коллбэк при неудачном ответе
+        * @param bool isPost Надо ли посылать POST вместо GET
         */
-        sendRequest: function (controller, action, data, callback_succ, callback_fail) {
+        sendRequest: function (controller, action, data, callback_succ, callback_fail, isPost) {
+            if (isPost == null)
+                isPost = false;
+
             //Сеттим базовые параметры
             var params = {
                 url: "/" + controller + "/" + action + "/",
-                type: "GET",
+                type: isPost ? "POST" : "GET",
                 dataType: "json",
                 data: data,
                 success: callback_succ,

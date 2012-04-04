@@ -35,7 +35,7 @@ namespace Templater.Controllers
             String data = Render.RenderView(this, "List", templates);
 
             //Отправляем ответ
-            return Json(new { result = true, data = data }, JsonRequestBehavior.AllowGet); ;
+            return Json(new { result = true, data = data }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -46,7 +46,7 @@ namespace Templater.Controllers
             String data = Render.RenderView(this, "New", null);
 
             //Отправляем ответ
-            return Json(new { result = true, data = data }, JsonRequestBehavior.AllowGet); ;
+            return Json(new { result = true, data = data }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

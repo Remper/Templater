@@ -28,5 +28,14 @@ namespace Templater.Adapters
         /// <param name="UserID">ID пользователя</param>
         /// <returns>Информация о шаблонах</returns>
         Template[] GetTemplates(int UserID);
+
+        /// <summary>
+        /// Создать новый шаблон в базе данных и вернуть объект с ним
+        /// </summary>
+        /// <param name="owner">ID пользователя, создающего шаблон</param>
+        /// <param name="name">Имя шаблона</param>
+        /// <param name="website">Вебсайт к которому применяется шаблон</param>
+        /// <returns></returns>
+        Template CreateNewTemplate(int owner, string name, string website);
     }
 }

@@ -102,6 +102,19 @@ Logic = {
                 else
                     wrapper.hide();
             });
+
+            $("#temp-save").click(function () {
+                var name = $("#temp-name").val();
+                var website = $("#temp-website").val();
+                var sitedata = $('input[name="temp-source-radios"]:checked').val() == "on" && $("#temp-source").val() != "" ? $("#temp-source").val() : "null";
+                var data = {
+                    name: name,
+                    website: website,
+                    source: sitedata
+                }
+
+                Kurs.Util.sendRequest("Template", "New", data, Callback.newPage.createNewSucc, Callback.newPage.createNewFail, true);
+            });
         },
 
         editPage: function (params) {
@@ -114,6 +127,22 @@ Logic = {
 
         errorPage: function (params) {
             alert("Fail");
+        }
+    }
+}
+
+/**
+ * Неймспейс колбеков
+ */
+Callback = {
+    newPage: {
+        createNewSucc: function (data) {
+            if (data.result)
+                window.location.hash = "";
+        },
+
+        createNewFail: function () {
+
         }
     }
 }

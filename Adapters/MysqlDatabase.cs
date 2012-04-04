@@ -24,11 +24,33 @@ namespace Templater.Adapters
             this.connection.Open();
         }
 
+        public Template CreateNewTemplate(int owner, string name, string website)
+        {
+            String query = "INSERT INTO templates VALUES (null, @owner, @website, @name)";
+            DBParam[] parameters = new[] {
+                new DBParam ("@owner", MySqlDbType.Int32, owner),
+                new DBParam ("@name", MySqlDbType.VarChar, name),
+                new DBParam ("@website", MySqlDbType.VarChar, website)
+            };
+            List<Object[]> result = this.ExecuteQuery(query, parameters);
+
+            query = "SELECT a.id, b.email, a.website, a.name, b.workgroup FROM templates AS a" +
+                    " INNER JOIN users AS b ON a.owner = b.id" +
+                    " WHERE a.owner = @owner AND a.name = @name ORDER BY a.id DESC LIMIT 0,1";
+            result = this.ExecuteQuery(query, parameters);
+            if (result.Count != 0)
+            {
+                return new Template((int)result[0][0], (int)result[0][4], (string)result[0][1], (string)result[0][2], (string)result[0][3]);
+            }
+            else
+                throw new Exception("Can't create new template");
+        }
+
         public Template[] GetTemplates(int UserID)
         {
             String query = "SELECT a.id, b.email, a.website, a.name, b.workgroup FROM templates AS a"+ 
                     " INNER JOIN users AS b ON a.owner = b.id"+
-                    " WHERE b.workgroup = (SELECT workgroup FROM users WHERE id = @UserID);";
+                    " WHERE b.workgroup = (SELECT workgroup FROM users WHERE id = @UserID) ORDER BY a.id DESC";
             DBParam[] parameters = new[] {
                 new DBParam ("@UserID", MySqlDbType.Int32, UserID)
             };
@@ -88,6 +110,7 @@ namespace Templater.Adapters
                 result.Add(temp);
             }
 
+            reader.Close();
             return result;
         }
     }
