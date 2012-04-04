@@ -4,42 +4,49 @@
     Layout = null;
 }
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Имя</th>
-            <th>Вебсайт</th>
-            <th>Владелец</th>
-            <th style="width: 80px;"></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (Templater.Models.Template template in Model)
-{
-    <tr>
-        <td>@template.Id</td>
-        <td>@template.Name</td>
-        <td>@template.Website</td>
-        <td>@template.OwnerEmail</td>
-        <td>
-            <div class="btn-group">
-                <a class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                    Правка
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#edit"><i class="icon-edit"></i> Редактировать исходник</a></li>
-                    <li><a href="#learn"><i class="icon-check"></i> Обучить</a></li>
-                    <li><a href="#"><i class="icon-trash"></i> Удалить</a></li>
-                </ul>
-            </div>
-        </td>
-    </tr>
-}
-@if(!Model.Any()) {
-   <tr><td colspan="5">С вами не связано никаких шаблонов</td></tr>
-}
+<div class="row">
+   <div class="span9">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Вебсайт</th>
+                    <th>Владелец</th>
+                    <th style="width: 80px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (Templater.Models.Template template in Model)
+        {
+            <tr>
+                <td>@template.Id</td>
+                <td>@template.Name</td>
+                <td>@template.Website</td>
+                <td>@template.OwnerEmail</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                            Правка
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#edit/@template.Id"><i class="icon-edit"></i> Редактировать исходник</a></li>
+                            <li><a href="#learn/@template.Id"><i class="icon-check"></i> Обучить</a></li>
+                            <li><a href="#delete/@template.Id"><i class="icon-trash"></i> Удалить</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+        @if(!Model.Any()) {
+           <tr><td colspan="5">С вами не связано никаких шаблонов</td></tr>
+        }
 
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
+    <div class="span3">
+        <a class="btn btn-large btn-success" style="float: right" href="#new"><i class="icon-plus icon-white"></i> Создать новый</a>
+    </div>
+</div>

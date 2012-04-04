@@ -42,7 +42,11 @@ namespace Templater.Controllers
         [Authorize]
         public ActionResult New()
         {
-            return View();
+            //Рендерим 
+            String data = Render.RenderView(this, "New", null);
+
+            //Отправляем ответ
+            return Json(new { result = true, data = data }, JsonRequestBehavior.AllowGet); ;
         }
 
         [HttpGet]

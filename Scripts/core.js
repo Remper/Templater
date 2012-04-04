@@ -65,7 +65,8 @@ var Kurs = {
             $('#authDialog').modal('hide');
             $('#authed-email').html(User.Email);
             $('#authed').show();
-            $('#deauthed').hide();
+            $('#deauthed').hide(); 
+            $('#auth-logout').click(Kurs.logout);
 
             Kurs.loadPage();
         } else {
@@ -110,7 +111,7 @@ var Kurs = {
 
         parseContext: function () {
             var path = window.location.pathname.split("/")[1].toLowerCase();
-            var hash = window.location.hash != "" ? window.location.hash.split("#")[1].toLowerCase() : null;
+            var hash = window.location.hash != "" ? window.location.hash.split("#")[1].toLowerCase() : "";
 
             //Дефолтный контекст
             if (path == "")
@@ -124,7 +125,8 @@ var Kurs = {
         },
 
         stateTracker: function () {
-            Kurs.Util.parseContext();
+            if (window.location.hash != "#auth")
+                Kurs.Util.parseContext();
         }
     },
 

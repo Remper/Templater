@@ -9,20 +9,20 @@ Controller = {
         Kurs.Context.tracker = this.stateTracker;
 
         //Загружаем базовый контент для страницы
-        Kurs.Util.sendRequest("Main", "List", {}, Controller.loadSucc, Controller.loadFail);
+        Logic.indexPage();
     },
 
     loadSucc: function (data) {
         if (data.result) {
             $("#content").html(data.data);
-            Controller.stateTracker();
+            Logic.pageLoaded();
         } else {
             Controller.loadFail("result");
         }
     },
 
     loadFail: function (result) {
-        alert("Fail");
+        Logic.pageError();
     },
 
     stateTracker: function () {
@@ -30,27 +30,35 @@ Controller = {
             var params = Kurs.Context.subpage.split("/");
             var page = params[0];
 
-            if (Logic.allowed.indexOf(page) != -1)
-                Logic[page + "Page"]();
-            else
+            if (Logic.allowed.indexOf(page) != -1) {
+                if (page != Logic.current.page)
+                    Logic[page + "Page"]();
+            } else
                 window.location.hash = "";
         } else
-            Logic.indexPage();
+            if ("index" != Logic.current.page)
+                Logic.indexPage();
     }
 }
 
 /**
- * Логика работы подстраниц
+ * Логика работы подстраниц и подзапросов
  */
 Logic = {
     allowed: ["index", "new", "edit", "learn"],
+    current: {
+        state: null,
+        page: null
+    },
 
     indexPage: function (params) {
-
+        Kurs.Util.sendRequest("Main", "List", {}, Controller.loadSucc, Controller.loadFail);
+        this.pageLoading("index");
     },
 
     newPage: function (params) {
-        
+        Kurs.Util.sendRequest("Main", "New", {}, Controller.loadSucc, Controller.loadFail);
+        this.pageLoading("new");
     },
 
     editPage: function (params) {
@@ -59,5 +67,46 @@ Logic = {
 
     learnPage: function (params) {
 
+    },
+
+    errorPage: function (params) {
+
+    },
+
+    pageLoading: function (page) {
+        this.current.state = "loading";
+        this.current.page = page;
+    },
+
+    pageLoaded: function () {
+        this.current.state = "loaded";
+        this.rebind[this.current.page+"Page"]();
+    },
+
+    pageError: function () {
+        this.current.state = "error";
+        this.rebind.errorPage();
+    },
+
+    rebind: {
+        indexPage: function (params) {
+            alert("loaded");
+        },
+
+        newPage: function (params) {
+
+        },
+
+        editPage: function (params) {
+
+        },
+
+        learnPage: function (params) {
+
+        },
+
+        errorPage: function (params) {
+            alert("Fail");
+        }
     }
 }
