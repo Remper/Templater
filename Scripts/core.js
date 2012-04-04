@@ -65,7 +65,7 @@ var Kurs = {
             $('#authDialog').modal('hide');
             $('#authed-email').html(User.Email);
             $('#authed').show();
-            $('#deauthed').hide(); 
+            $('#deauthed').hide();
             $('#auth-logout').click(Kurs.logout);
 
             Kurs.loadPage();
@@ -120,8 +120,7 @@ var Kurs = {
         },
 
         appendLoader: function (object) {
-            var placeholder = $("<div align=\"center\" style=\"margin-top: 100px\"><img src=\"/Content/img/loader.gif\" /></div>");
-            placeholder.appendTo(object);
+            object.html("<div align=\"center\" style=\"margin-top: 100px\"><img src=\"/Content/img/loader.gif\" /></div>");
         },
 
         stateTracker: function () {
