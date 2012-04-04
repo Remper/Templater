@@ -120,7 +120,7 @@ var Kurs = {
         },
 
         appendLoader: function (object) {
-            var placeholder = $("<div align=\"center\" style=\"margin-top: 200px\"><img src=\"/Content/img/loader.gif\" /></div>");
+            var placeholder = $("<div align=\"center\" style=\"margin-top: 100px\"><img src=\"/Content/img/loader.gif\" /></div>");
             placeholder.appendTo(object);
         },
 

@@ -2,4 +2,54 @@
     Layout = null;
 }
 
-<h2>New</h2>
+<ul class="breadcrumb">
+  <li>
+    <a href="#">Шаблонизатор</a> <span class="divider">/</span>
+  </li>
+  <li class="active">
+    Новый шаблон
+  </li>
+</ul>
+
+<form class="form-horizontal">
+    <fieldset>
+        <legend>Создание нового шаблона</legend>
+        <div class="control-group">
+            <label class="control-label" for="temp-name">Имя шаблона</label>
+            <div class="controls">
+                <input type="text" class="span3" id="temp-name" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="temp-website">Адрес вебсайта</label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on" style="color: Black">http://</span><input size="16" id="temp-website" type="text" />
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Исходник</label>
+            <div class="controls">
+                <label class="radio">
+                <input type="radio" name="temp-source-radios" id="temp-source-off" value="off" checked>
+                    Создать пустой шаблон
+                </label>
+                <label class="radio">
+                <input type="radio" name="temp-source-radios" id="temp-source-on" value="on">
+                    Написать сейчас
+                </label>
+            </div>
+        </div>
+        <div class="control-group" id="temp-source-wrapper" style="display:none">
+            <label class="control-label" for="temp-source">Исходник шаблона</label>
+            <div class="controls">
+                <textarea class="span8" id="temp-source" rows="30"></textarea>
+            </div>
+        </div>
+        <div class="form-actions">
+            <a class="btn btn-primary" href="#new" id="temp-save">Сохранить шаблон</a>
+            <a class="btn" href="#" id="temp-back">Назад</a>
+        </div>
+    </fieldset>
+</form>

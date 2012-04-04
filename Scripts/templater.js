@@ -75,12 +75,13 @@ Logic = {
 
     pageLoading: function (page) {
         this.current.state = "loading";
+        Kurs.Util.appendLoader($("#content"));
         this.current.page = page;
     },
 
     pageLoaded: function () {
         this.current.state = "loaded";
-        this.rebind[this.current.page+"Page"]();
+        this.rebind[this.current.page + "Page"]();
     },
 
     pageError: function () {
@@ -90,11 +91,17 @@ Logic = {
 
     rebind: {
         indexPage: function (params) {
-            alert("loaded");
+
         },
 
         newPage: function (params) {
-
+            $('input[name="temp-source-radios"]').change(function () {
+                var wrapper = $("#temp-source-wrapper");
+                if (this.value == "on")
+                    wrapper.show();
+                else
+                    wrapper.hide();
+            });
         },
 
         editPage: function (params) {
