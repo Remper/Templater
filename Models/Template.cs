@@ -71,6 +71,28 @@ namespace Templater.Models
             return result;
         }
 
+        /// <summary>
+        /// Удалить шаблон
+        /// </summary>
+        /// <param name="templateID">ID шаблона</param>
+        /// <param name="userID">ID владельца</param>
+        /// <returns>Успешно ли удаление</returns>
+        public static bool DeleteTemplate(int templateID, int userID)
+        {
+            //Удаляем данные шаблона
+            string filePath = WebConfigurationManager.AppSettings["TemplateFolder"] + "\\" + templateID + ".xml";
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+
+            //Инициализируем базу данных
+            MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
+
+            bool result = database.DeleteTemplate(templateID);
+
+            //Возвращаем результат
+            return result;
+        }
+
         public string Website { 
             get { return this._Website; }
             set { this._Website = value; } 

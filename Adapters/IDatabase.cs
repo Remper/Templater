@@ -37,5 +37,12 @@ namespace Templater.Adapters
         /// <param name="website">Вебсайт к которому применяется шаблон</param>
         /// <returns></returns>
         Template CreateNewTemplate(int owner, string name, string website);
+
+        /// <summary>
+        /// Удалить шаблон из базы данных
+        /// </summary>
+        /// <param name="templateID">ID шаблона</param>
+        /// <returns>Успешно ли удаление</returns>
+        bool DeleteTemplate(int templateID);
     }
 }

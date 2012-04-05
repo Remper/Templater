@@ -79,6 +79,18 @@ namespace Templater.Adapters
             return result;
         }
 
+        public bool DeleteTemplate(int templateID)
+        {
+            String query = "DELETE FROM templates WHERE id = @templateID";
+            DBParam[] parameters = new[] {
+                new DBParam ("@templateID", MySqlDbType.VarChar, templateID)
+            };
+
+            List<Object[]> result = this.ExecuteQuery(query, parameters);
+
+            return true;
+        }
+
         /// <summary>
         /// Для запроса query и параметров parameters выполняет запрос и заполняет его в таблицу
         /// </summary>

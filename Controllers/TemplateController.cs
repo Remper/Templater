@@ -57,5 +57,14 @@ namespace Templater.Controllers
             return Json(new { result = true }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult Delete()
+        {
+            //Допилить парсинг инта + уметь узнавать принадлежит ли пользователю шаблон + запилить клиентскую часть
+            Template.DeleteTemplate(0, ((User)Session["User"]).UserId);
+            return Json(new { result = true }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
