@@ -82,5 +82,13 @@ namespace Templater.Models
         public string OwnerEmail { get { return this._OwnerEmail; } }
         public int WorkGroupId { get { return this._WorkGroupId; } }
         public int Id { get { return this._Id; } }
+
+        public bool HasTemplateData
+        {
+            get
+            {
+                return File.Exists(WebConfigurationManager.AppSettings["TemplateFolder"] + "\\" + this._Id + ".xml");
+            }
+        }
     }
 }

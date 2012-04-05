@@ -21,7 +21,7 @@
         {
             <tr>
                 <td>@template.Id</td>
-                <td>@template.Name</td>
+                <td>@if(template.HasTemplateData) {<span class="label label-success">Есть исходник</span>} @template.Name</td>
                 <td>@template.Website</td>
                 <td>@template.OwnerEmail</td>
                 <td>
