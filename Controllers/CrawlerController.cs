@@ -13,6 +13,7 @@ namespace Templater.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Controller = "crawler";
             return View();
         }
 
