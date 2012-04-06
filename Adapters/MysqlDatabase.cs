@@ -91,6 +91,20 @@ namespace Templater.Adapters
             return true;
         }
 
+        public bool CheckRights(int templateID, int userID)
+        {
+            String query = "SELECT count(*) FROM templates AS a" +
+                    " INNER JOIN users AS b ON a.owner = b.id" +
+                    " WHERE b.workgroup = (SELECT workgroup FROM users WHERE id = @userID) AND a.id = @templateID";
+            DBParam[] parameters = new[] {
+                new DBParam ("@templateID", MySqlDbType.Int32, templateID),
+                new DBParam ("@userID", MySqlDbType.Int32, userID)
+            };
+            List<Object[]> result = this.ExecuteQuery(query, parameters);
+
+            return (long)result[0][0] == 1 ? true : false;
+        }
+
         /// <summary>
         /// Для запроса query и параметров parameters выполняет запрос и заполняет его в таблицу
         /// </summary>

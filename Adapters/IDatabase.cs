@@ -44,5 +44,13 @@ namespace Templater.Adapters
         /// <param name="templateID">ID шаблона</param>
         /// <returns>Успешно ли удаление</returns>
         bool DeleteTemplate(int templateID);
+
+        /// <summary>
+        /// Проверить права пользователя по отношению к шаблону
+        /// </summary>
+        /// <param name="templateID">ID шаблона</param>
+        /// <param name="userID">ID пользователя</param>
+        /// <returns>Может ли пользователь надругаться над шаблоном</returns>
+        bool CheckRights(int templateID, int userID);
     }
 }

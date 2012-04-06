@@ -75,9 +75,8 @@ namespace Templater.Models
         /// Удалить шаблон
         /// </summary>
         /// <param name="templateID">ID шаблона</param>
-        /// <param name="userID">ID владельца</param>
         /// <returns>Успешно ли удаление</returns>
-        public static bool DeleteTemplate(int templateID, int userID)
+        public static bool DeleteTemplate(int templateID)
         {
             //Удаляем данные шаблона
             string filePath = WebConfigurationManager.AppSettings["TemplateFolder"] + "\\" + templateID + ".xml";
@@ -93,6 +92,7 @@ namespace Templater.Models
             return result;
         }
 
+        //Read/Write
         public string Website { 
             get { return this._Website; }
             set { this._Website = value; } 
@@ -101,10 +101,13 @@ namespace Templater.Models
             get { return this._Name; }
             set { this._Name = value; } 
         }
+
+        //Readonly
         public string OwnerEmail { get { return this._OwnerEmail; } }
         public int WorkGroupId { get { return this._WorkGroupId; } }
         public int Id { get { return this._Id; } }
 
+        //Custom readonly
         public bool HasTemplateData
         {
             get

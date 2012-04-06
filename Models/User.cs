@@ -59,5 +59,18 @@ namespace Templater.Models
 
             return true;
         }
+
+        /// <summary>
+        /// Проверить имеет ли текущий пользователь права на данный шаблон
+        /// </summary>
+        /// <param name="templateID">ID шаблона</param>
+        /// <returns>Результат проверки</returns>
+        public bool CheckRights(int templateID)
+        {
+            //Инициализируем базу данных
+            MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
+
+            return database.CheckRights(templateID, this._UserId);
+        }
     }
 }

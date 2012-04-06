@@ -61,9 +61,20 @@ namespace Templater.Controllers
         [Authorize]
         public ActionResult Delete()
         {
-            //Допилить парсинг инта + уметь узнавать принадлежит ли пользователю шаблон + запилить клиентскую часть
-            Template.DeleteTemplate(0, ((User)Session["User"]).UserId);
-            return Json(new { result = true }, JsonRequestBehavior.AllowGet);
+            int templateID;
+            bool result;
+            if (!Int32.TryParse(Request["templateid"], out templateID) || templateID <= 0)
+                return Json(new { result = false, msg = "Не могу распарсить входной параметр" }, JsonRequestBehavior.AllowGet);
+
+            if (((User)Session["User"]).CheckRights(templateID))
+                result = Template.DeleteTemplate(templateID);
+            else
+                return Json(new { result = false, msg = "Это не ваш шаблон" }, JsonRequestBehavior.AllowGet);
+
+            if (result)
+                return Json(new { result = true }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { result = false, msg = "Произошла ошибка во время удаления шаблона" }, JsonRequestBehavior.AllowGet);
         }
 
     }

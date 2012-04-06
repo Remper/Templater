@@ -91,7 +91,28 @@ Logic = {
 
     rebind: {
         indexPage: function (params) {
-
+            $(".temp-delete").click(function () {
+                var id = this.id.split("-")[1];
+                $("#temp-deletion").remove();
+                $(document.body).append("<div class=\"modal\" id=\"temp-deletion\">" +
+                    "   <div class=\"modal-header\">" +
+                    "       <a class=\"close\" data-dismiss=\"modal\">×</a>" +
+                    "       <h3>Удаление шаблона</h3>" +
+                    "   </div>" +
+                    "   <div class=\"modal-body\">" +
+                    "       <p>Вы уверены, что хотите удалить шаблон #" + id + "?</p>" +
+                    "   </div>" +
+                    "   <div class=\"modal-footer\">" +
+                    "       <a data-dismiss=\"modal\" class=\"btn\">Отмена</a>" +
+                    "       <a id=\"temp-really-delete-" + id + "\" class=\"btn btn-primary\">Удалить</a>" +
+                    "   </div>" +
+                    "</div>");
+                $('#temp-deletion').modal();
+                $("#temp-really-delete-" + id).click(function () {
+                    $('#temp-deletion').modal('hide');
+                    Kurs.Util.sendRequest("Template", "Delete", { templateid: this.id.split("-")[3] }, Callback.indexPage.deleteTempSucc, Callback.indexPage.deleteTempFail);
+                });
+            });
         },
 
         newPage: function (params) {
@@ -139,9 +160,23 @@ Callback = {
         createNewSucc: function (data) {
             if (data.result)
                 window.location.hash = "";
+            else
+                Callback.newPage.createNewFail();
         },
 
         createNewFail: function () {
+
+        }
+    },
+    indexPage: {
+        deleteTempSucc: function (data) {
+            if (data.result)
+                Logic.indexPage();
+            else
+                Callback.indexPage.deleteTempFail();
+        },
+
+        deleteTempFail: function () {
 
         }
     }
