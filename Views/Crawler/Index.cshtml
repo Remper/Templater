@@ -5,4 +5,159 @@
 @Html.Partial("Header")
 
 <div class="container">
+    <div class="page-header">
+        <h3>Панель управления кроулером</h3>
+    </div>
+    <div style="margin: 15px 0 15px 0">
+        <a class="btn btn-success" href=""><i class="icon-plus icon-white"></i> Новая задача</a>
+    </div>
+    <div id="content" class="row">
+        <table class="table span12 table-bordered-no-cells">
+            <tbody>
+                <tr>
+                    <td class="span12 large-cell" colspan="5" style="padding: 0">
+                        <div class="row">
+                            <div class="large-cell-menu span4">
+                                <ul class="right-bar">
+                                    <li><a href="#"><i class="icon-stop"></i> Остановить просчёт</a></li>
+                                    <li><a href="#"><i class="icon-share"></i> Смотреть результаты</a></li>
+                                    <li><a href="#"><i class="icon-repeat"></i> Запустить заново</a></li>
+                                    <li><a href="#"><i class="icon-edit"></i> Править задачу</a></li>
+                                    <li><a href="#"><i class="icon-trash"></i> Удалить задачу</a></li>
+                                </ul>
+                            </div>
+                            <div style="float:right; padding: 10px 10px 0 0;"><a class="close">×</a></div>
+                            <div style="padding: 10px 10px 10px 38px;" class="span8">
+                                <table class="large-cell-content span8">
+                                    <tbody>
+                                        <tr>
+                                            <td class="span2"><b>Шаблон:</b></td>
+                                            <td class="span2">Шаблонище</td>
+                                            <td class="span4">
+                                                <div class="progress" style="margin-bottom: 0px">
+                                                    <div class="bar" style="width: 60%;"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Вебсайт:</b></td>
+                                            <td colspan="2"><a href="http://habrahabr.ru">http://habrahabr.ru</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Дата постановки:</b></td>
+                                            <td colspan="2">07.04.2012</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Глубина поиска:</b></td>
+                                            <td colspan="2">3</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Статус:</b></td>
+                                            <td colspan="2">Сопоставление на глубине 2</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Результаты:</b></td>
+                                            <td colspan="2"><span class="badge badge-info">30</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="span2">Шаблон1</td>
+                    <td class="span1"><span class="badge badge-info">30</span></td>
+                    <td class="span5">
+                        <div class="progress" style="margin-bottom: 0px">
+                            <div class="bar" style="width: 60%;"></div>
+                        </div>
+                    </td>
+                    <td class="span1"><span style="float: right">07.04.2012</span></td>
+                    <td class="span1">
+                        <div class="btn-group">
+                            <a class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                                Правка
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#edit"><i class="icon-edit"></i> Редактировать исходник</a></li>
+                                <li><a href="#learn"><i class="icon-check"></i> Обучить</a></li>
+                                <li><a><i class="icon-trash"></i> Удалить</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="span2">Шаблон2</td>
+                    <td class="span1"><span class="badge badge-info">10</span></td>
+                    <td class="span5">
+                        <div class="progress" style="margin-bottom: 0px">
+                            <div class="bar" style="width: 30%;"></div>
+                        </div>
+                    </td>
+                    <td class="span1"><span style="float: right">07.04.2012</span></td>
+                    <td class="span1">
+                        <div class="btn-group">
+                            <a class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                                Правка
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#edit"><i class="icon-edit"></i> Редактировать исходник</a></li>
+                                <li><a href="#learn"><i class="icon-check"></i> Обучить</a></li>
+                                <li><a><i class="icon-trash"></i> Удалить</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="span2">Шаблон3</td>
+                    <td class="span1"><span class="badge badge-info">0</span></td>
+                    <td class="span5">
+                        <div class="progress" style="margin-bottom: 0px">
+                            <div class="bar" style="width: 0%;"></div>
+                        </div>
+                    </td>
+                    <td class="span1"><span style="float: right">03.04.2012</span></td>
+                    <td class="span1">
+                        <div class="btn-group">
+                            <a class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                                Правка
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#edit"><i class="icon-edit"></i> Редактировать исходник</a></li>
+                                <li><a href="#learn"><i class="icon-check"></i> Обучить</a></li>
+                                <li><a><i class="icon-trash"></i> Удалить</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="span2">Шаблон4</td>
+                    <td class="span1"><span class="badge badge-default">1050</span></td>
+                    <td class="span5">
+                        <div class="progress progress-success" style="margin-bottom: 0px">
+                            <div class="bar" style="width: 100%;"></div>
+                        </div>
+                    </td>
+                    <td class="span1"><span style="float: right">01.04.2012</span></td>
+                    <td class="span1">
+                        <div class="btn-group">
+                            <a class="btn btn-mini btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                                Правка
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#edit"><i class="icon-edit"></i> Редактировать исходник</a></li>
+                                <li><a href="#learn"><i class="icon-check"></i> Обучить</a></li>
+                                <li><a><i class="icon-trash"></i> Удалить</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

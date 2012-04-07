@@ -81,6 +81,7 @@
     <Compile Include="Models\Template.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\libs\bootstrap.css" />
     <Content Include="Scripts\crawler.js" />
     <Content Include="Scripts\libs\jquery.hashchange.min.js" />
     <Content Include="Scripts\workgroup.js" />
@@ -89,7 +90,6 @@
   <ItemGroup>
     <Content Include="Content\img\loader.gif" />
     <Content Include="Content\libs\bootstrap-responsive.css" />
-    <Content Include="Content\libs\bootstrap.css" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
     <Content Include="Content\main.css" />
