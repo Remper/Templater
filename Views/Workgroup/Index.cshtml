@@ -4,5 +4,50 @@
 
 @Html.Partial("Header")
 
-<div class="container">
+<div class="container ">
+    <div class="page-header">
+        <h3>Панель управления модерацией</h3>
+    </div>
+    <div id="content" class="row">
+        <div class="span9">
+            <h4 style="margin-bottom: 8px;">Заявки на модерацию</h4>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td rowspan="4">Сайт ........</td>
+                        <td class="span3"><a href="">Ссылка раз</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">Ссылка два</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="">Ссылка три</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a class="btn btn-large btn-success" style="display: block; margin: 0 0 8px 0;" href="">Одобрить заявку</a>
+                            <a class="btn btn-danger" style="display: block; margin: 0 0 8px 0;" href="">Отклонить заявку</a>
+                            <a class="btn" style="display: block; margin: 0 0 0 0;" href="">Следующая заявка</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="span3" style="margin-top: 26px">
+            <table class="table table-bordered">
+                <thead>
+                    <tr><th>Рабочая группа</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>remper@me.com</td>
+                    </tr><tr>
+                        <td>test@test.ru</td>
+                    </tr><tr>
+                        <td>example@example.org</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
