@@ -13,6 +13,7 @@ namespace Templater.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Controller = "workgroup";
             return View();
         }
 
