@@ -14,17 +14,19 @@
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <td rowspan="4">Сайт ........</td>
-                        <td class="span3"><a href="">Ссылка раз</a></td>
+                        <td class="large-cell inline-header" rowspan="4">
+                            <h4>Шаблонище</h4><h4><small><a href="http://habrahabr">http://habrahabr</a></small></h4><h4><small>07.04.2012</small></h4>
+                        </td>
+                        <td class="span3"><a href=""><i class="icon-list-alt"></i> Перейти к задаче</a></td>
                     </tr>
                     <tr>
-                        <td><a href="">Ссылка два</a></td>
+                        <td><a href=""><i class="icon-share-alt"></i> Перейти к шаблону</a></td>
                     </tr>
                     <tr>
-                        <td><a href="">Ссылка три</a></td>
+                        <td><a href=""><i class="icon-remove"></i> Отклонить похожие</a></td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="large-cell">
                             <a class="btn btn-large btn-success" style="display: block; margin: 0 0 8px 0;" href="">Одобрить заявку</a>
                             <a class="btn btn-danger" style="display: block; margin: 0 0 8px 0;" href="">Отклонить заявку</a>
                             <a class="btn" style="display: block; margin: 0 0 0 0;" href="">Следующая заявка</a>
@@ -34,20 +36,33 @@
             </table>
         </div>
         <div class="span3" style="margin-top: 26px">
-            <table class="table table-bordered">
-                <thead>
-                    <tr><th>Рабочая группа</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>remper@me.com</td>
-                    </tr><tr>
-                        <td>test@test.ru</td>
-                    </tr><tr>
-                        <td>example@example.org</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="row">
+                <div class="span3">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr><th>Рабочая группа</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>remper@me.com</td>
+                            </tr><tr>
+                                <td>test@test.ru</td>
+                            </tr><tr>
+                                <td>example@example.org</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="span3 input-append">
+                    <a class="btn" style="margin-bottom: 9px; float: right;" href=""><i class="icon-plus"></i></a>
+                    <div style="margin-right: 45px;">
+                        <input style="width: 100%; color: #dddddd" id="appendedPrependedInput" size="16" type="text" value="example@example.org" />
+                    </div>
+                </div>
+                <div class="span3">
+                    <a class="btn" style="display: block; margin: 0 0 0 0;" href="">Покинуть группу</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
