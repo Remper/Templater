@@ -64,3 +64,8 @@ table.large-cell-content tbody tr td
     display: inline-block;
     margin-left: 30px;
 }
+
+.cell-content
+{
+    padding: 10px 10px 0 10px;
+}

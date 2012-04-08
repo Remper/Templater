@@ -82,8 +82,10 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Content\libs\bootstrap.css" />
+    <Content Include="Content\libs\prettify.css" />
     <Content Include="Scripts\crawler.js" />
     <Content Include="Scripts\libs\jquery.hashchange.min.js" />
+    <Content Include="Scripts\libs\prettify.js" />
     <Content Include="Scripts\workgroup.js" />
     <Content Include="Scripts\templater.js" />
   </ItemGroup>

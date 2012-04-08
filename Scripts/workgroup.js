@@ -10,6 +10,7 @@ Controller = {
 
         //Загружаем базовый контент для страницы
         Logic.indexPage();
+        prettyPrint();
     },
 
     loadSucc: function (data) {
