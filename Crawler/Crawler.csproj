@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>290f7b73-5f80-4259-a991-b971b9f5f7b3</ProjectGuid>
+    <ProjectGuid>{C01F53AD-5DEF-43C0-9578-ED4B001D6336}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Crawler</RootNamespace>
