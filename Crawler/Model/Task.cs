@@ -10,7 +10,7 @@ namespace Crawler.Model
     /// <summary>
     /// Класс "Задача"
     /// </summary>
-    class Task
+    public class Task
     {
         private int _ID;
         private int _TemplateID;
@@ -49,5 +49,10 @@ namespace Crawler.Model
         {
 
         }
+
+        //Readonly
+        public int ID { get { return this._ID; } }
+        public int TemplateID { get { return this._TemplateID; } }
+        public string Website { get { return this._Website; } }
     }
 }

@@ -18,6 +18,6 @@ namespace Crawler.Adapters
         /// </summary>
         /// <param name="taskID">ID задачи</param>
         /// <returns>Задача</returns>
-        public Task GetTaskInfo(int taskID);
+        Task GetTaskInfo(int taskID);
     }
 }
