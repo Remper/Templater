@@ -31,7 +31,7 @@ CREATE TABLE `templates` (
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `ownerid` (`owner`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,8 +40,37 @@ CREATE TABLE `templates` (
 
 LOCK TABLES `templates` WRITE;
 /*!40000 ALTER TABLE `templates` DISABLE KEYS */;
-INSERT INTO `templates` VALUES (2,1,'http://habrahabr.ru','Test2'),(3,2,'http://test.test','Test3'),(4,3,'http://expample.org','Test4');
+INSERT INTO `templates` VALUES (2,1,'http://habrahabr.ru','Habr'),(3,2,'http://www.yandex.ru/','Yandex'),(4,3,'http://expample.org','Test4'),(5,1,'http://ria.ru/','Ria');
 /*!40000 ALTER TABLE `templates` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tasks`
+--
+
+DROP TABLE IF EXISTS `tasks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tasks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `templateid` int(11) NOT NULL,
+  `timestamp` varchar(45) NOT NULL,
+  `depth` int(11) NOT NULL DEFAULT '0',
+  `status` varchar(45) NOT NULL DEFAULT 'open',
+  `results` int(11) NOT NULL DEFAULT '0',
+  `progress` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tasks`
+--
+
+LOCK TABLES `tasks` WRITE;
+/*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
+INSERT INTO `tasks` VALUES (1,5,'04.04.2012',1,'open',0,0),(2,3,'05.04.2012',2,'open',0,0),(3,2,'11.04.2012',0,'open',0,0),(4,3,'11.04.2012',0,'open',0,0);
+/*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -104,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-04-11 10:46:00
+-- Dump completed on 2012-04-11 22:58:36
