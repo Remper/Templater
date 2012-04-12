@@ -27,7 +27,7 @@ namespace Crawler.Adapters
         public Task GetTaskInfo(int taskID)
         {
             String query = "SELECT a.id, a.templateid, b.website, a.timestamp, a.depth" +
-                "FROM tasks AS a INNER JOIN templates AS b ON a.templateid = b.id WHERE id = @taskID";
+                " FROM tasks AS a INNER JOIN templates AS b ON a.templateid = b.id WHERE a.id = @taskID";
             DBParam[] parameters = new[] {
                 new DBParam ("@taskID", MySqlDbType.Int32, taskID)
             };

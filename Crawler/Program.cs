@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Configuration;
+using Crawler.Adapters;
+using Crawler.Model;
 
 namespace Crawler
 {
@@ -10,9 +12,16 @@ namespace Crawler
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(args.Count());
-            Console.WriteLine(Properties.Settings.Default.ConnectionString);
-            Console.Read();
+            if (args.Count() == 1)
+            {
+                MysqlDatabase database = new MysqlDatabase(Properties.Settings.Default.ConnectionString);
+                int taskID;
+
+                if (Int32.TryParse(args[0], out taskID)) {
+                    Task newtask = database.GetTaskInfo(taskID);
+                    newtask.StartCrawling();
+                }
+            }
         }
     }
 }
