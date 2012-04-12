@@ -11,7 +11,6 @@ using Crawler.Adapters;
 namespace Crawler.Model
 {
     enum Statuses { Open, Stopped, Inprogress, Started, Closed }
-    enum StepType { Select, Criteria, Result }
 
     /// <summary>
     /// Класс "Задача"
@@ -28,6 +27,7 @@ namespace Crawler.Model
         private int _Progress;
         private int _curDepth;
         private string templateData;
+        private MysqlDatabase connection;
 
         public Task(int id, int templateId, string website, string timestamp, int depth)
         {
@@ -36,10 +36,12 @@ namespace Crawler.Model
             this._Timestamp = DateTime.Parse(timestamp);
             this._Depth = depth;
             this._ID = id;
-            _Status = Statuses.Open;
-            _Progress = 0;
-            _curDepth = 0;
-            _Results = 0;
+            this._Status = Statuses.Open;
+            this._Progress = 0;
+            this._curDepth = 0;
+            this._Results = 0;
+            this.connection = new MysqlDatabase(Properties.Settings.Default.ConnectionString);
+            this.connection.ResetResults(this._ID);
         }
 
         public void StartCrawling() 
@@ -60,9 +62,11 @@ namespace Crawler.Model
 
                 //Обозначаем наше присутствие и начинаем парсить
                 this._Status = Statuses.Started;
-                this.UpdateStatus();
+                this.UpdateProgress();
                 List<string[]> results = this.ParseHTML(doc, template);
                 this.PushResults(results);
+                this._Status = Statuses.Closed;
+                this.UpdateProgress();
             }
         }
 
@@ -70,16 +74,30 @@ namespace Crawler.Model
         public int ID { get { return this._ID; } }
         public int TemplateID { get { return this._TemplateID; } }
         public string Website { get { return this._Website; } }
-
-
-        private void FinalizeTask()
+        public string Status
         {
-
+            get
+            {
+                switch (this._Status)
+                {
+                    case Statuses.Open:
+                    default:
+                        return "open";
+                    case Statuses.Closed:
+                        return "closed";
+                    case Statuses.Started:
+                        return "started";
+                    case Statuses.Stopped:
+                        return "stopped";
+                    case Statuses.Inprogress:
+                        return "Сопоставление на глубине " + this._curDepth;
+                }
+            }
         }
 
-        private void UpdateStatus()
+        private void UpdateProgress()
         {
-
+            this.connection.UpdateProgress(this._ID, this._Results, this.Status, this._Progress);
         }
 
         private void PushResults(List<string[]> results)
@@ -91,12 +109,16 @@ namespace Crawler.Model
                 for (int j = 0; j < results[0].Length; j++)
                     accumulator += results[0][j] + ": \"" + results[i][j] + (j == results[0].Length-1 ? "\"" : "\",") + '\n';
                 accumulator += "}";
-                database.AddNewResult(this._TemplateID, "new", accumulator);
+                this.connection.AddNewResult(this._ID, "new", accumulator);
+                this._Results++;
+                UpdateProgress();
             }
         }
 
         private List<string[]> ParseHTML(HtmlDocument doc, XmlDocument template)
         {
+            this._Status = Statuses.Started;
+            UpdateProgress();
             HtmlNode curNode = doc.DocumentNode;
             XmlElement curComp = template.DocumentElement;
             //Получаем список xpath-критериев
@@ -114,6 +136,8 @@ namespace Crawler.Model
             }
             //Получаем стартовую ноду
             string startnode = "//"+results[0].Split('/')[0];
+            //Запоминаем прогресс
+            this._Status = Statuses.Inprogress;
             //Получаем изначальный список совпадений
             List<HtmlNode> col = doc.DocumentNode.SelectNodes(startnode).ToList();
             //Отсеиваем по критериям

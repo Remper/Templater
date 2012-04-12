@@ -38,13 +38,38 @@ namespace Crawler.Adapters
             return result;
         }
 
-        public bool AddNewResult(int templateID, string status, string result)
+        public bool AddNewResult(int taskID, string status, string result)
         {
-            String query = "INSERT INTO results VALUES (null, @templateID, @status, @result)";
+            String query = "INSERT INTO results VALUES (null, @taskID, @status, @result)";
             DBParam[] parameters = new[] {
-                new DBParam ("@templateID", MySqlDbType.Int32, templateID),
+                new DBParam ("@taskID", MySqlDbType.Int32, taskID),
                 new DBParam ("@status", MySqlDbType.VarChar, status),
                 new DBParam ("@result", MySqlDbType.Text, result)
+            };
+            List<Object[]> row = this.ExecuteQuery(query, parameters);
+
+            return true;
+        }
+
+        public bool UpdateProgress(int taskID, int results, string status, int progress)
+        {
+            String query = "UPDATE tasks SET results = @results, status = @status, progress = @progress WHERE id = @taskID";
+            DBParam[] parameters = new[] {
+                new DBParam ("@taskID", MySqlDbType.Int32, taskID),
+                new DBParam ("@results", MySqlDbType.Int32, results),
+                new DBParam ("@status", MySqlDbType.VarChar, status),
+                new DBParam ("@progress", MySqlDbType.Int32, progress)
+            };
+            List<Object[]> row = this.ExecuteQuery(query, parameters);
+
+            return true;
+        }
+
+        public bool ResetResults(int taskID)
+        {
+            String query = "DELETE FROM results WHERE taskid = @taskID";
+            DBParam[] parameters = new[] {
+                new DBParam ("@taskID", MySqlDbType.Int32, taskID)
             };
             List<Object[]> row = this.ExecuteQuery(query, parameters);
 

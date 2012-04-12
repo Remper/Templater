@@ -96,7 +96,7 @@ CREATE TABLE `tasks` (
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
-INSERT INTO `tasks` VALUES (1,5,'04.04.2012',1,'open',0,0),(2,3,'05.04.2012',2,'open',0,0),(3,2,'11.04.2012',0,'open',0,0),(4,3,'11.04.2012',0,'open',0,0);
+INSERT INTO `tasks` VALUES (1,5,'04.04.2012',1,'closed',18,0),(2,3,'05.04.2012',2,'open',0,0),(3,2,'11.04.2012',0,'open',0,0),(4,3,'11.04.2012',0,'open',0,0);
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,4 +158,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-04-12 13:36:07
+-- Dump completed on 2012-04-12 17:34:30

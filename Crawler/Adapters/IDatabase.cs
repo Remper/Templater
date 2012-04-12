@@ -23,11 +23,28 @@ namespace Crawler.Adapters
         /// <summary>
         /// Записать в базу результат
         /// </summary>
-        /// <param name="templateID">ID шаблона</param>
+        /// <param name="taskID">ID задачи</param>
         /// <param name="status">Текст статуса</param>
         /// <param name="result">Сериализованный объект результата</param>
         /// <returns>Успех/Неуспех</returns>
-        bool AddNewResult(int templateID, string status, string result);
+        bool AddNewResult(int taskID, string status, string result);
+
+        /// <summary>
+        /// Обновить прогресс задачи
+        /// </summary>
+        /// <param name="taskID">ID задачи</param>
+        /// <param name="results">Количество результатов</param>
+        /// <param name="status">Статус задачи</param>
+        /// <param name="progress">Процент выполнения</param>
+        /// <returns>Успех/Неуспех</returns>
+        bool UpdateProgress(int taskID, int results, string status, int progress);
+
+        /// <summary>
+        /// Сбросить результаты предыдущего прохода
+        /// </summary>
+        /// <param name="taskID">ID задачи</param>
+        /// <returns>Успех/Неуспех</returns>
+        bool ResetResults(int taskID);
 
         /// <summary>
         /// Закрыть соединение
