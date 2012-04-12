@@ -4,7 +4,7 @@ USE `kurs`;
 --
 -- Host: localhost    Database: kurs
 -- ------------------------------------------------------
--- Server version	5.5.20
+-- Server version	5.5.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -45,6 +45,33 @@ INSERT INTO `templates` VALUES (2,1,'http://habrahabr.ru','Habr'),(3,2,'http://w
 UNLOCK TABLES;
 
 --
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL DEFAULT 'zero',
+  `workgroup` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'remper@me.com','testtest',1),(2,'mail@remper.ru','123123',2),(3,'test@test.ru','123123',1);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tasks`
 --
 
@@ -74,33 +101,6 @@ INSERT INTO `tasks` VALUES (1,5,'04.04.2012',1,'open',0,0),(2,3,'05.04.2012',2,'
 UNLOCK TABLES;
 
 --
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL DEFAULT 'zero',
-  `workgroup` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'remper@me.com','testtest',1),(2,'mail@remper.ru','123123',2),(3,'test@test.ru','123123',1);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `workgroups`
 --
 
@@ -123,6 +123,31 @@ LOCK TABLES `workgroups` WRITE;
 INSERT INTO `workgroups` VALUES (1,'Default Team'),(2,'Team 17');
 /*!40000 ALTER TABLE `workgroups` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `results`
+--
+
+DROP TABLE IF EXISTS `results`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `results` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `taskid` int(11) NOT NULL,
+  `status` varchar(45) NOT NULL DEFAULT 'new',
+  `result` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `results`
+--
+
+LOCK TABLES `results` WRITE;
+/*!40000 ALTER TABLE `results` DISABLE KEYS */;
+/*!40000 ALTER TABLE `results` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -133,4 +158,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-04-11 22:58:36
+-- Dump completed on 2012-04-12 13:36:07
