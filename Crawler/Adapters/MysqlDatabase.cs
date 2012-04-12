@@ -81,6 +81,18 @@ namespace Crawler.Adapters
             this.connection.Close();
         }
 
+        public bool MonopolizeTask(int taskID, int processID)
+        {
+            String query = "UPDATE tasks SET process = @processID WHERE id = @taskID";
+            DBParam[] parameters = new[] {
+                new DBParam ("@taskID", MySqlDbType.Int32, taskID),
+                new DBParam ("@processID", MySqlDbType.Int32, processID)
+            };
+            List<Object[]> row = this.ExecuteQuery(query, parameters);
+
+            return true;
+        }
+
         /// <summary>
         /// Для запроса query и параметров parameters выполняет запрос и заполняет его в таблицу
         /// </summary>

@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Xml;
+using System.Diagnostics;
 using HtmlAgilityPack;
 using Crawler.Adapters;
 
@@ -42,6 +43,7 @@ namespace Crawler.Model
             this._Results = 0;
             this.connection = new MysqlDatabase(Properties.Settings.Default.ConnectionString);
             this.connection.ResetResults(this._ID);
+            UpdateProgress();
         }
 
         public void StartCrawling() 
@@ -50,6 +52,8 @@ namespace Crawler.Model
             string templatePath = Properties.Settings.Default.TemplateFolder + "\\" + this._TemplateID + ".xml";
             if (File.Exists(templatePath))
             {
+                //Говорим что этим шаблоном занимаемся мы
+                MonopolizeTask();
                 //Загружаем шаблон в XML документ
                 XmlDocument template = new XmlDocument();
                 template.Load(templatePath);
@@ -62,10 +66,12 @@ namespace Crawler.Model
 
                 //Обозначаем наше присутствие и начинаем парсить
                 this._Status = Statuses.Started;
+                this._Progress = 20;
                 this.UpdateProgress();
                 List<string[]> results = this.ParseHTML(doc, template);
                 this.PushResults(results);
                 this._Status = Statuses.Closed;
+                this._Progress = 100;
                 this.UpdateProgress();
             }
         }
@@ -117,8 +123,6 @@ namespace Crawler.Model
 
         private List<string[]> ParseHTML(HtmlDocument doc, XmlDocument template)
         {
-            this._Status = Statuses.Started;
-            UpdateProgress();
             HtmlNode curNode = doc.DocumentNode;
             XmlElement curComp = template.DocumentElement;
             //Получаем список xpath-критериев
@@ -138,6 +142,7 @@ namespace Crawler.Model
             string startnode = "//"+results[0].Split('/')[0];
             //Запоминаем прогресс
             this._Status = Statuses.Inprogress;
+            this._Progress = 40;
             //Получаем изначальный список совпадений
             List<HtmlNode> col = doc.DocumentNode.SelectNodes(startnode).ToList();
             //Отсеиваем по критериям
@@ -306,6 +311,11 @@ namespace Crawler.Model
             }
             else
                 return null;
+        }
+
+        private void MonopolizeTask()
+        {
+            this.connection.MonopolizeTask(this._ID, Process.GetCurrentProcess().Id);
         }
     }
 }

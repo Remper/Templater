@@ -47,6 +47,14 @@ namespace Crawler.Adapters
         bool ResetResults(int taskID);
 
         /// <summary>
+        /// Указать, какой процесс занимается задачей
+        /// </summary>
+        /// <param name="taskID">ID задачи</param>
+        /// <param name="processID">ID процесса</param>
+        /// <returns></returns>
+        bool MonopolizeTask(int taskID, int processID);
+
+        /// <summary>
         /// Закрыть соединение
         /// </summary>
         void Close();
