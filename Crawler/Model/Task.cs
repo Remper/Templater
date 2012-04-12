@@ -5,7 +5,6 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Xml;
-using System.Linq;
 using HtmlAgilityPack;
 
 namespace Crawler.Model
@@ -81,7 +80,7 @@ namespace Crawler.Model
 
         }
 
-        private List<string> ParseHTML(HtmlDocument doc, XmlDocument template)
+        private List<string[]> ParseHTML(HtmlDocument doc, XmlDocument template)
         {
             HtmlNode curNode = doc.DocumentNode;
             XmlElement curComp = template.DocumentElement;
@@ -91,10 +90,12 @@ namespace Crawler.Model
             List<string> criterias = new List<string>();
             foreach (string result in results)
             {
-                if (result.IndexOf("{") != -1 && result.IndexOf("}") != -1)
+                if (result.IndexOf("{{") != -1 && result.IndexOf("}}") != -1)
                     criterias.Add(result);
-                else
+                else if (result.IndexOf("{") != -1 && result.IndexOf("}") != -1)
                     targets.Add(result);
+                else
+                    criterias.Add(result);
             }
             //Получаем стартовую ноду
             string startnode = "//"+results[0].Split('/')[0];
@@ -104,8 +105,10 @@ namespace Crawler.Model
             List<HtmlNode> passedNodes = new List<HtmlNode>();
             foreach (HtmlNode node in col)
             {
+                bool flag = false;
                 foreach (string criteria in criterias)
                 {
+                    flag = false;
                     if (criteria.IndexOf("{{") != -1)
                     {
                         string match = criteria.Split('{')[0].Substring(criteria.IndexOf("/"));
@@ -113,31 +116,82 @@ namespace Crawler.Model
                         IEnumerable<HtmlNode> toCheck = node.SelectNodes(match);
                         if (toCheck != null)
                         {
-                            bool flag = false;
                             foreach (HtmlNode checker in toCheck)
                             {
                                 if (checker.InnerText + "}}" == criteria.Split('{')[2])
                                     flag = true;
                             }
-                            if (flag)
-                                passedNodes.Add(node);
                         }
                     }
                     else
                     {
-                        string match = criteria.Split('{')[0].Substring(criteria.IndexOf("/"));
-                        match = "."+match.Substring(0, match.Length - 1);
+                        string match = "." + criteria;
                         IEnumerable<HtmlNode> toCheck = node.SelectNodes(match);
                         if (toCheck != null)
-                            passedNodes.Add(node);
+                            flag = true;
                     }
-
+                    if (!flag)
+                        break;
                 }
+                if (flag)
+                    passedNodes.Add(node);
             }
-            //Отсеиваем
-            //Проверяем каждый из критериев и записываем результаты
+            col = passedNodes;
+            passedNodes = new List<HtmlNode>();
+            //Отсеиваем по значениям
+            foreach (HtmlNode node in col)
+            {
+                bool flag = false;
+                foreach (string target in targets)
+                {
+                    flag = false;
+                    string match = target.Split('{')[0].Substring(target.IndexOf("/"));
+                    match = "." + match.Substring(0, match.Length - 1);
+                    IEnumerable<HtmlNode> toCheck = node.SelectNodes(match);
+                    if (toCheck == null)
+                        break;
+                    flag = true;
+                }
+                if (flag)
+                    passedNodes.Add(node);
+            }
+            //Формируем списки нод со значениями
+            List<List<HtmlNode>> resnodes = new List<List<HtmlNode>>();
+            //Списки имён значений
+            List<string> names = new List<string>();
+            foreach (string target in targets)
+            {
+                List<HtmlNode> targetnodes = new List<HtmlNode>();
+                string targetname = target.Split('{')[1];
+                targetname = targetname.Substring(0, targetname.Length - 1);
+                names.Add(targetname);
+                foreach (HtmlNode node in passedNodes)
+                {
+                    string match = target.Split('{')[0].Substring(target.IndexOf("/"));
+                    match = "." + match.Substring(0, match.Length - 1);
+                    targetnodes.AddRange(node.SelectNodes(match));
+                }
+                resnodes.Add(targetnodes);
+            }
 
-            return new List<string>();
+            //Формируем результаты
+            int num = resnodes.Min(x => x.Count);
+            int size = resnodes.Count;
+            List<string[]> finalresults = new List<string[]>();
+            finalresults.Add(names.ToArray());
+            for (int i = 0; i < num; i++)
+            {
+                string[] temp = new string[size];
+                for (int j = 0; j < size; j++)
+                {
+                    HtmlNode cur = resnodes[j][i];
+                    foreach (HtmlNode node in cur.ChildNodes)
+                        if (node.NodeType == HtmlNodeType.Text)
+                            temp[j] = node.InnerText;
+                }
+                finalresults.Add(temp);
+            }
+            return finalresults;
         }
 
         private List<string> ParseTemplate(XmlElement curComp)
