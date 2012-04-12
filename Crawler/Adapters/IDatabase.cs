@@ -19,5 +19,19 @@ namespace Crawler.Adapters
         /// <param name="taskID">ID задачи</param>
         /// <returns>Задача</returns>
         Task GetTaskInfo(int taskID);
+
+        /// <summary>
+        /// Записать в базу результат
+        /// </summary>
+        /// <param name="templateID">ID шаблона</param>
+        /// <param name="status">Текст статуса</param>
+        /// <param name="result">Сериализованный объект результата</param>
+        /// <returns>Успех/Неуспех</returns>
+        bool AddNewResult(int templateID, string status, string result);
+
+        /// <summary>
+        /// Закрыть соединение
+        /// </summary>
+        void Close();
     }
 }

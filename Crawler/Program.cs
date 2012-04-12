@@ -19,6 +19,8 @@ namespace Crawler
 
                 if (Int32.TryParse(args[0], out taskID)) {
                     Task newtask = database.GetTaskInfo(taskID);
+                    database.Close();
+                    database = null;
                     newtask.StartCrawling();
                 }
             }

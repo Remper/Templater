@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Xml;
 using HtmlAgilityPack;
+using Crawler.Adapters;
 
 namespace Crawler.Model
 {
@@ -60,7 +61,8 @@ namespace Crawler.Model
                 //Обозначаем наше присутствие и начинаем парсить
                 this._Status = Statuses.Started;
                 this.UpdateStatus();
-                this.ParseHTML(doc, template);
+                List<string[]> results = this.ParseHTML(doc, template);
+                this.PushResults(results);
             }
         }
 
@@ -78,6 +80,19 @@ namespace Crawler.Model
         private void UpdateStatus()
         {
 
+        }
+
+        private void PushResults(List<string[]> results)
+        {
+            for (int i = 1; i < results.Count; i++)
+            {
+                MysqlDatabase database = new MysqlDatabase(Properties.Settings.Default.ConnectionString);
+                string accumulator = "{" + '\n';
+                for (int j = 0; j < results[0].Length; j++)
+                    accumulator += results[0][j] + ": \"" + results[i][j] + (j == results[0].Length-1 ? "\"" : "\",") + '\n';
+                accumulator += "}";
+                database.AddNewResult(this._TemplateID, "new", accumulator);
+            }
         }
 
         private List<string[]> ParseHTML(HtmlDocument doc, XmlDocument template)

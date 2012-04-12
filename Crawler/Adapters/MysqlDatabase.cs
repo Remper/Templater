@@ -38,6 +38,24 @@ namespace Crawler.Adapters
             return result;
         }
 
+        public bool AddNewResult(int templateID, string status, string result)
+        {
+            String query = "INSERT INTO results VALUES (null, @templateID, @status, @result)";
+            DBParam[] parameters = new[] {
+                new DBParam ("@templateID", MySqlDbType.Int32, templateID),
+                new DBParam ("@status", MySqlDbType.VarChar, status),
+                new DBParam ("@result", MySqlDbType.Text, result)
+            };
+            List<Object[]> row = this.ExecuteQuery(query, parameters);
+
+            return true;
+        }
+
+        public void Close()
+        {
+            this.connection.Close();
+        }
+
         /// <summary>
         /// Для запроса query и параметров parameters выполняет запрос и заполняет его в таблицу
         /// </summary>
