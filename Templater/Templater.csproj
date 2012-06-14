@@ -82,6 +82,7 @@
     <Compile Include="Misc\AuthorizationAttribute.cs" />
     <Compile Include="Misc\DBParam.cs" />
     <Compile Include="Misc\Render.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\Template.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
