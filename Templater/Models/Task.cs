@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Templater.Models
 {
-    enum Statuses { Open, Stopped, Inprogress, Started, Closed }
+    public enum Statuses { Open, Stopped, Inprogress, Started, Closed }
 
     /// <summary>
     /// Класс "Задача"

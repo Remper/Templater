@@ -85,6 +85,14 @@ namespace Templater.Adapters
         /// <param name="templateID">ID шаблона</param>
         /// <param name="userID">ID пользователя</param>
         /// <returns>Может ли пользователь надругаться над шаблоном</returns>
-        bool CheckRights(int templateID, int userID);
+        bool CheckRightsForTemplate(int templateID, int userID);
+
+        /// <summary>
+        /// Проверить права пользователя по отношению к задаче
+        /// </summary>
+        /// <param name="taskID">ID задачи</param>
+        /// <param name="userID">ID пользователя</param>
+        /// <returns>Может ли пользователь надругаться над задачей</returns>
+        bool CheckRightsForTask(int taskID, int userID);
     }
 }

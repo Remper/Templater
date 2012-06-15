@@ -66,7 +66,7 @@ namespace Templater.Controllers
             if (!Int32.TryParse(Request["templateid"], out templateID) || templateID <= 0)
                 return Json(new { result = false, msg = "Не могу распарсить входной параметр" }, JsonRequestBehavior.AllowGet);
 
-            if (((User)Session["User"]).CheckRights(templateID))
+            if (((User)Session["User"]).CheckRightsForTemplate(templateID))
                 result = Template.DeleteTemplate(templateID);
             else
                 return Json(new { result = false, msg = "Это не ваш шаблон" }, JsonRequestBehavior.AllowGet);

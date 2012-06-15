@@ -66,6 +66,11 @@ namespace Templater.Adapters
             return rows;
         }
 
+        public Task[] GetTasks(int UserID)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Object[]> GetUserByCredentials(String email, String password)
         {
             String query = "SELECT * FROM users WHERE email = @email AND password = @password";
@@ -77,6 +82,21 @@ namespace Templater.Adapters
             List<Object[]> result = this.ExecuteQuery(query, parameters);
 
             return result;
+        }
+
+        public Task CreateNewTask(int templateID, int depth)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateTask(int taskID, int depth, int templateID, int status, int results, int progress)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteTask(int taskID)
+        {
+            throw new NotImplementedException();
         }
 
         public bool DeleteTemplate(int templateID)
@@ -91,13 +111,28 @@ namespace Templater.Adapters
             return true;
         }
 
-        public bool CheckRights(int templateID, int userID)
+        public bool CheckRightsForTemplate(int templateID, int userID)
         {
             String query = "SELECT count(*) FROM templates AS a" +
                     " INNER JOIN users AS b ON a.owner = b.id" +
                     " WHERE b.workgroup = (SELECT workgroup FROM users WHERE id = @userID) AND a.id = @templateID";
             DBParam[] parameters = new[] {
                 new DBParam ("@templateID", MySqlDbType.Int32, templateID),
+                new DBParam ("@userID", MySqlDbType.Int32, userID)
+            };
+            List<Object[]> result = this.ExecuteQuery(query, parameters);
+
+            return (long)result[0][0] == 1 ? true : false;
+        }
+
+        public bool CheckRightsForTask(int taskID, int userID)
+        {
+            String query = "SELECT count(*) FROM templates AS a" +
+                    " INNER JOIN users AS b ON a.owner = b.id" +
+                    " WHERE b.workgroup = (SELECT workgroup FROM users WHERE id = @userID)" +
+                    " AND a.id = (SELECT templateid FROM tasks WHERE id = @taskID)";
+            DBParam[] parameters = new[] {
+                new DBParam ("@templateID", MySqlDbType.Int32, taskID),
                 new DBParam ("@userID", MySqlDbType.Int32, userID)
             };
             List<Object[]> result = this.ExecuteQuery(query, parameters);

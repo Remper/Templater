@@ -65,12 +65,25 @@ namespace Templater.Models
         /// </summary>
         /// <param name="templateID">ID шаблона</param>
         /// <returns>Результат проверки</returns>
-        public bool CheckRights(int templateID)
+        public bool CheckRightsForTemplate(int templateID)
         {
             //Инициализируем базу данных
             MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
 
-            return database.CheckRights(templateID, this._UserId);
+            return database.CheckRightsForTemplate(templateID, this._UserId);
+        }
+
+        /// <summary>
+        /// Проверить имеет ли текущий пользователь права на задачу
+        /// </summary>
+        /// <param name="taskID">ID задачи</param>
+        /// <returns>Результат проверки</returns>
+        public bool CheckRightsForTask(int taskID)
+        {
+            //Инициализируем базу данных
+            MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
+
+            return database.CheckRightsForTask(taskID, this._UserId);
         }
     }
 }
