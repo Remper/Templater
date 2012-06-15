@@ -86,6 +86,7 @@ CREATE TABLE `tasks` (
   `status` varchar(45) NOT NULL DEFAULT 'open',
   `results` int(11) NOT NULL DEFAULT '0',
   `progress` int(11) NOT NULL DEFAULT '0',
+  `process` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -96,7 +97,7 @@ CREATE TABLE `tasks` (
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
-INSERT INTO `tasks` VALUES (1,5,'04.04.2012',1,'closed',18,0),(2,3,'05.04.2012',2,'open',0,0),(3,2,'11.04.2012',0,'open',0,0),(4,3,'11.04.2012',0,'open',0,0);
+INSERT INTO `tasks` VALUES (1,5,'04.04.2012',1,'closed',18,100,5168),(2,3,'05.04.2012',2,'open',0,0,0),(3,2,'11.04.2012',0,'open',0,0,0),(4,3,'11.04.2012',0,'open',0,0,0);
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +138,7 @@ CREATE TABLE `results` (
   `status` varchar(45) NOT NULL DEFAULT 'new',
   `result` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,6 +147,7 @@ CREATE TABLE `results` (
 
 LOCK TABLES `results` WRITE;
 /*!40000 ALTER TABLE `results` DISABLE KEYS */;
+INSERT INTO `results` VALUES (145,1,'new','{\ntime: \"19:28\",\ntitle: \"Число людей, страдающих слабоумием, к 2030 г возрастет вдвое - ВОЗ\"\n}'),(146,1,'new','{\ntime: \"19:19\",\ntitle: \"Эксперты ООН прибудут в Сирию для подготовки работы наблюдателей\"\n}'),(147,1,'new','{\ntime: \"19:16\",\ntitle: \"Правоохранители заявляют о давлении на суд по делу вора в законе\"\n}'),(148,1,'new','{\ntime: \"19:11\",\ntitle: \"Жизнь астраханских эсеров вне опасности, заявил Левичев\"\n}'),(149,1,'new','{\ntime: \"19:05\",\ntitle: \"Весна вышла из берегов: тысячи людей лишились жилья\"\n}'),(150,1,'new','{\ntime: \"19:05\",\ntitle: \"Электоральный рейтинг Путина с февраля вырос до 54%\"\n}'),(151,1,'new','{\ntime: \"19:00\",\ntitle: \"Число подтопленных домов в Саратовской области возросло до 184\"\n}'),(152,1,'new','{\ntime: \"18:55\",\ntitle: \"МВД РФ получило часть материалов дела Дерипаски и Махмудова\"\n}'),(153,1,'new','{\ntime: \"18:54\",\ntitle: \"РФ обнулит экспортные пошлины для новых шельфовых проектов\"\n}'),(154,1,'new','{\ntime: \"18:44\",\ntitle: \"Медведев внес кандидатуру Ковтун на должность главы Мурманской области\"\n}'),(155,1,'new','{\ntime: \"18:41\",\ntitle: \"Пострадавшие в Хибинах застрахованы в \"Альянсе\" на $30 тыс каждый\"\n}'),(156,1,'new','{\ntime: \"18:34\",\ntitle: \"Одиночные пикеты в поддержку голодающего эсера Шеина прошли в Воронеже\"\n}'),(157,1,'new','{\ntime: \"18:33\",\ntitle: \"Госдума не может обратиться в международный суд по делу Бута - депутат\"\n}'),(158,1,'new','{\ntime: \"18:21\",\ntitle: \"Британская писательница Джоан Роулинг раскрыла детали нового романа\"\n}'),(159,1,'new','{\ntime: \"18:14\",\ntitle: \"Самые дорогие автопарки в кабмине - у Хлопонина, Шувалова и Трутнева\"\n}'),(160,1,'new','{\ntime: \"18:02\",\ntitle: \"\"Гладиаторы\" протестовали против запрета их работы, \"захватив\" Колизей\"\n}'),(161,1,'new','{\ntime: \"17:57\",\ntitle: \"Глава МИД РФ посетил первый открывшийся в США российский визовый центр\"\n}'),(162,1,'new','{\ntime: \"17:56\",\ntitle: \"МВД Сирии обещает амнистию боевикам, не причастным к убийствам\"\n}');
 /*!40000 ALTER TABLE `results` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -158,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-04-12 17:34:30
+-- Dump completed on 2012-06-15 20:35:59
