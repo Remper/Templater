@@ -40,6 +40,7 @@ namespace Templater.Models
         public Task(int id, int templateId, string templateName, string website, string status, 
             DateTime timestamp, int depth, int progress, int results, int process)
         {
+            //Инициализируем переменные
             this._Id = id;
             this._TemplateId = templateId;
             this._TemplateName = templateName;
@@ -49,6 +50,7 @@ namespace Templater.Models
             this._Progress = progress;
             this._Results = results;
             this._Process = process;
+            //Парсим статус
             switch (status)
             {
                 case "open":
@@ -97,10 +99,10 @@ namespace Templater.Models
         /// <summary>
         /// Создать задачу
         /// </summary>
-        /// <param name="website">Вебсайт, с которого требуется искать информацию</param>
+        /// <param name="templateID">ID шаблона для задачи</param>
         /// <param name="depth">Глубина поиска</param>
         /// <returns>Созданная задача</returns>
-        public static Task CreateTask(string website, int depth)
+        public static Task CreateTask(int templateID, int depth)
         {
             throw new NotImplementedException();
         }
@@ -121,6 +123,18 @@ namespace Templater.Models
         /// <param name="taskID">ID задачи</param>
         /// <returns>Успех/Неуспех</returns>
         public static bool RestartTask(int taskID)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Обновить задачу
+        /// </summary>
+        /// <param name="taskID">ID задачи</param>
+        /// <param name="depth">Глубина поиска</param>
+        /// <param name="templateID">ID шаблона</param>
+        /// <returns></returns>
+        public static bool UpdateTask(int taskID, int depth, int templateID)
         {
             throw new NotImplementedException();
         }
