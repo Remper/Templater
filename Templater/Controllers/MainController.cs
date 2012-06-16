@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using Templater.Adapters;
 using Templater.Models;
 using Templater.Misc;
 using System.Web.Security;
@@ -27,10 +26,8 @@ namespace Templater.Controllers
         [Authorize]
         public ActionResult List()
         {
-            //Инициализируем базу данных
-            MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
             //Получаем список шаблонов для текущего пользователя
-            Template[] templates = database.GetTemplates(((User)Session["User"]).UserId);
+            Template[] templates = Database.Instance.GetTemplates(((User)Session["User"]).UserId);
             //Рендерим 
             String data = Render.RenderView(this, "List", templates);
 

@@ -5,12 +5,16 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using System.Web.Configuration;
+using Templater.Adapters;
 using MvcFilters.Infrastructure.Filters;
 
 namespace Templater
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
+    public static class Database
+    {
+        public static MysqlDatabase Instance;
+    }
 
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -38,6 +42,9 @@ namespace Templater
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            //Инициализируем базу данных
+            Database.Instance = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
         }
     }
 }

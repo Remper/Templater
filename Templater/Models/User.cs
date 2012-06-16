@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
-using MySql.Data.MySqlClient;
 using System.Data;
-using Templater.Adapters;
 
 namespace Templater.Models
 {
@@ -48,8 +46,7 @@ namespace Templater.Models
             if (this._AuthState)
                 return true;
 
-            MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
-            List<Object[]> result = database.GetUserByCredentials(this.Email, password);
+            List<Object[]> result = Database.Instance.GetUserByCredentials(this.Email, password);
             if (result.Count != 1)
                 return false;
 
@@ -67,10 +64,7 @@ namespace Templater.Models
         /// <returns>Результат проверки</returns>
         public bool CheckRightsForTemplate(int templateID)
         {
-            //Инициализируем базу данных
-            MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
-
-            return database.CheckRightsForTemplate(templateID, this._UserId);
+            return Database.Instance.CheckRightsForTemplate(templateID, this._UserId);
         }
 
         /// <summary>
@@ -80,10 +74,7 @@ namespace Templater.Models
         /// <returns>Результат проверки</returns>
         public bool CheckRightsForTask(int taskID)
         {
-            //Инициализируем базу данных
-            MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
-
-            return database.CheckRightsForTask(taskID, this._UserId);
+            return Database.Instance.CheckRightsForTask(taskID, this._UserId);
         }
     }
 }

@@ -6,8 +6,6 @@ using System.Data;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Configuration;
-using MySql.Data.MySqlClient;
-using Templater.Adapters;
 
 namespace Templater.Models
 {
@@ -53,11 +51,8 @@ namespace Templater.Models
         /// <param name="templateData">Исходник шаблона</param>
         public static Template CreateTemplate(int ownerId, string name, string website, string templateData) 
         {
-            //Инициализируем базу данных
-            MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
-
             //Создаём шаблон в базе данных
-            Template result = database.CreateNewTemplate(ownerId, name, "http://"+website);
+            Template result = Database.Instance.CreateNewTemplate(ownerId, name, "http://"+website);
 
             //Если есть чего записывать в шаблон, записываем
             if (templateData != null)
@@ -83,10 +78,8 @@ namespace Templater.Models
             if (File.Exists(filePath))
                 File.Delete(filePath);
 
-            //Инициализируем базу данных
-            MysqlDatabase database = new MysqlDatabase(WebConfigurationManager.AppSettings["ConnectionString"]);
-
-            bool result = database.DeleteTemplate(templateID);
+            //Делаем запрос на удаление шаблона из базы данных
+            bool result = Database.Instance.DeleteTemplate(templateID);
 
             //Возвращаем результат
             return result;
