@@ -14,6 +14,13 @@ namespace Templater.Adapters
     interface IDatabase
     {
         /// <summary>
+        /// Получить информацию о конкретной задаче
+        /// </summary>
+        /// <param name="taskID">ID задачи</param>
+        /// <returns>Задача с заданным ID</returns>
+        Task GetTask(int taskID);
+
+        /// <summary>
         /// Проверить корректность данных пользователя
         /// Проверяет на существование и соответствие
         /// </summary>
@@ -32,8 +39,8 @@ namespace Templater.Adapters
         /// <summary>
         /// Получить информацию о всех задачах рабочей группы
         /// </summary>
-        /// <param name="UserID"></param>
-        /// <returns></returns>
+        /// <param name="UserID">ID текущего пользователя</param>
+        /// <returns>Список задач</returns>
         Task[] GetTasks(int UserID);
 
         /// <summary>
@@ -42,7 +49,7 @@ namespace Templater.Adapters
         /// <param name="owner">ID пользователя, создающего шаблон</param>
         /// <param name="name">Имя шаблона</param>
         /// <param name="website">Вебсайт к которому применяется шаблон</param>
-        /// <returns></returns>
+        /// <returns>Созданный шаблон</returns>
         Template CreateNewTemplate(int owner, string name, string website);
 
         /// <summary>
@@ -63,7 +70,7 @@ namespace Templater.Adapters
         /// <param name="results">Количество результатов</param>
         /// <param name="progress">Прогресс вычисления</param>
         /// <returns>Успешно ли обновление</returns>
-        bool UpdateTask(int taskID, int depth, int templateID, int status, int results, int progress);
+        bool UpdateTask(int taskID, int depth, int templateID, string status, int results, int progress);
 
         /// <summary>
         /// Удалить задачу из базы данных

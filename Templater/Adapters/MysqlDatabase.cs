@@ -24,6 +24,11 @@ namespace Templater.Adapters
             this.connection.Open();
         }
 
+        public Task GetTask(int taskID)
+        {
+            throw new NotImplementedException();
+        }
+
         public Template CreateNewTemplate(int owner, string name, string website)
         {
             String query = "INSERT INTO templates VALUES (null, @owner, @website, @name)";
@@ -89,7 +94,7 @@ namespace Templater.Adapters
             throw new NotImplementedException();
         }
 
-        public bool UpdateTask(int taskID, int depth, int templateID, int status, int results, int progress)
+        public bool UpdateTask(int taskID, int depth, int templateID, string status, int results, int progress)
         {
             throw new NotImplementedException();
         }
