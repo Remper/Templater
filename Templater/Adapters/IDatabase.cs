@@ -55,10 +55,11 @@ namespace Templater.Adapters
         /// <summary>
         /// Создать новую задачу и вернуть объект с ней
         /// </summary>
+        /// <param name="owner">Постановщик задачи</param>
         /// <param name="templateID">ID шаблона</param>
         /// <param name="depth">Глубина поиска</param>
         /// <returns>Созданная задача</returns>
-        Task CreateNewTask(int templateID, int depth);
+        Task CreateNewTask(int owner, int templateID, int depth);
 
         /// <summary>
         /// Обновить задачу

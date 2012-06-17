@@ -116,12 +116,13 @@ namespace Templater.Models
         /// <summary>
         /// Создать задачу
         /// </summary>
+        /// <param name="userID">Постановщик задачи</param>
         /// <param name="templateID">ID шаблона для задачи</param>
         /// <param name="depth">Глубина поиска</param>
         /// <returns>Созданная задача</returns>
-        public static Task CreateTask(int templateID, int depth)
+        public static Task CreateTask(int userID, int templateID, int depth)
         {
-            return Database.Instance.CreateNewTask(templateID, depth);
+            return Database.Instance.CreateNewTask(userID, templateID, depth);
         }
 
         /// <summary>

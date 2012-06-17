@@ -120,14 +120,52 @@ namespace Templater.Adapters
             return result;
         }
 
-        public Task CreateNewTask(int templateID, int depth)
+        public Task CreateNewTask(int owner, int templateID, int depth)
         {
-            throw new NotImplementedException();
+            String query = "INSERT INTO tasks VALUES (null, @owner, @templateid, @timestamp, @depth, \"open\", 0, 0, 0)";
+            DBParam[] parameters = new[] {
+                new DBParam ("@owner", MySqlDbType.Int32, owner),
+                new DBParam ("@templateid", MySqlDbType.Int32, templateID),
+                new DBParam ("@timestamp", MySqlDbType.VarChar, DateTime.Now.ToString("dd.MM.yyyy")),
+                new DBParam ("@depth", MySqlDbType.Int32, depth)
+            };
+            List<Object[]> result = this.ExecuteQuery(query, parameters);
+
+            query = "SELECT c.email, a.templateid, b.name, b.website, a.status, a.timestamp, a.depth, a.progress, a.results, a.process, a.id" +
+                " FROM tasks AS a INNER JOIN templates AS b ON a.templateid = b.id"+
+                " INNER JOIN users AS c ON a.owner = c.id WHERE a.id = (SELECT LAST_INSERT_ID())";
+            result = this.ExecuteQuery(query, parameters);
+            if (result.Count != 0)
+            {
+                return new Task((int)result[0][10], (string)result[0][0], (int)result[0][1], (string)result[0][2], 
+                    (string)result[0][3], (string)result[0][4], DateTime.Parse((string)result[0][5]), (int)result[0][6], 
+                    (int)result[0][7], (int)result[0][8], (int)result[0][9]);
+            }
+            else
+                throw new Exception("Can't create new task");
         }
 
         public bool UpdateTask(int taskID, int depth, int templateID, string status, int results, int progress)
         {
-            throw new NotImplementedException();
+            String query = "UPDATE tasks AS a SET"+
+                " a.depth = @depth,"+
+                " a.templateid = @templateID,"+ 
+                " a.status = @status,"+
+                " a.results = @results,"+
+                " a.progress = @progress,"+
+                " a.process = 0"+
+                " WHERE a.id = @taskID";
+            DBParam[] parameters = new[] {
+                new DBParam ("@taskID", MySqlDbType.Int32, taskID),
+                new DBParam ("@depth", MySqlDbType.Int32, depth),
+                new DBParam ("@templateID", MySqlDbType.Int32, templateID),
+                new DBParam ("@status", MySqlDbType.VarChar, status),
+                new DBParam ("@results", MySqlDbType.Int32, results),
+                new DBParam ("@progress", MySqlDbType.Int32, progress)
+            };
+            List<Object[]> result = this.ExecuteQuery(query, parameters);
+
+            return true;
         }
 
         public bool DeleteTask(int taskID)
