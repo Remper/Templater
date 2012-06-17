@@ -25,11 +25,13 @@ namespace Templater.Models
         private string _Status;
         private Statuses status;
         private int _Process;
+        private string _Owner;
 
         /// <summary>
         /// Конструктор задачи
         /// </summary>
         /// <param name="id">ID задачи</param>
+        /// <param name="owner">Постановщик задачи</param>
         /// <param name="templateId">ID шаблона</param>
         /// <param name="templateName">Имя шаблона</param>
         /// <param name="website">Имя вебсайта для поиска</param>
@@ -39,7 +41,7 @@ namespace Templater.Models
         /// <param name="progress">Прогресс</param>
         /// <param name="results">Количество результатов</param>
         /// <param name="process">Процесс, который монополизировал таск</param>
-        public Task(int id, int templateId, string templateName, string website, string status, 
+        public Task(int id, string owner, int templateId, string templateName, string website, string status, 
             DateTime timestamp, int depth, int progress, int results, int process)
         {
             //Инициализируем переменные
@@ -52,6 +54,7 @@ namespace Templater.Models
             this._Progress = progress;
             this._Results = results;
             this._Process = process;
+            this._Owner = owner;
             //Парсим статус
             switch (status)
             {
@@ -89,6 +92,7 @@ namespace Templater.Models
         public int Progress { get { return this._Progress; } }
         public int Depth { get { return this._Depth; } }
         public int TemplateId { get { return this._TemplateId; } }
+        public string Owner { get { return this._Owner; } } 
         public string GetStatusName()
         {
             return this._Status;

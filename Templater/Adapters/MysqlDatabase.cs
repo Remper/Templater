@@ -26,7 +26,20 @@ namespace Templater.Adapters
 
         public Task GetTask(int taskID)
         {
-            throw new NotImplementedException();
+            String query = "SELECT c.email, a.templateid, b.name, b.website, a.status, a.timestamp, a.depth, a.progress, a.results, a.process" +
+                " FROM tasks AS a INNER JOIN templates AS b ON a.templateid = b.id INNER JOIN users AS c ON a.owner = c.id WHERE a.id = @taskid";
+            DBParam[] parameters = new[] {
+                new DBParam ("@taskid", MySqlDbType.Int32, taskID)
+            };
+            List<Object[]> result = this.ExecuteQuery(query, parameters);
+            result = this.ExecuteQuery(query, parameters);
+            if (result.Count == 1)
+            {
+                return new Task(taskID, (string)result[0][0], (int)result[0][1], (string)result[0][2], (string)result[0][3], (string)result[0][4],
+                    DateTime.Parse((string)result[0][5]), (int)result[0][6], (int)result[0][7], (int)result[0][8], (int)result[0][9]);
+            }
+            else
+                throw new Exception("Can't get a task");
         }
 
         public Template CreateNewTemplate(int owner, string name, string website)
@@ -73,7 +86,25 @@ namespace Templater.Adapters
 
         public Task[] GetTasks(int UserID)
         {
-            throw new NotImplementedException();
+            String query = "SELECT a.id, c.email, a.templateid, b.name, b.website, a.status, a.timestamp, a.depth,"+
+                    " a.progress, a.results, a.process FROM tasks AS a"+
+                    " INNER JOIN templates AS b ON a.templateid = b.id"+
+                    " INNER JOIN users AS c ON a.owner = c.id"+
+                    " WHERE c.workgroup = (SELECT workgroup FROM users WHERE id = @UserID) ORDER BY a.id DESC";
+            DBParam[] parameters = new[] {
+                new DBParam ("@UserID", MySqlDbType.Int32, UserID)
+            };
+
+            List<Object[]> result = this.ExecuteQuery(query, parameters);
+            Task[] rows = new Task[result.Count];
+            for (int i = 0; i < result.Count; i++)
+            {
+                Object[] row = result[i];
+                rows[i] = new Task((int)row[0], (string)row[1], (int)row[2], (string)row[3], (string)row[4], (string)row[5],
+                    DateTime.Parse((string)row[6]), (int)row[7], (int)row[8], (int)row[9], (int)row[10]);
+            }
+
+            return rows;
         }
 
         public List<Object[]> GetUserByCredentials(String email, String password)
@@ -132,12 +163,11 @@ namespace Templater.Adapters
 
         public bool CheckRightsForTask(int taskID, int userID)
         {
-            String query = "SELECT count(*) FROM templates AS a" +
-                    " INNER JOIN users AS b ON a.owner = b.id" +
-                    " WHERE b.workgroup = (SELECT workgroup FROM users WHERE id = @userID)" +
-                    " AND a.id = (SELECT templateid FROM tasks WHERE id = @taskID)";
+            String query = "SELECT count(*) FROM tasks AS a"+
+                    " INNER JOIN users AS b ON a.owner = b.id"+
+                    " WHERE a.id = @taskID AND b.workgroup = (SELECT c.workgroup FROM users AS c WHERE c.id = @userID)";
             DBParam[] parameters = new[] {
-                new DBParam ("@templateID", MySqlDbType.Int32, taskID),
+                new DBParam ("@taskID", MySqlDbType.Int32, taskID),
                 new DBParam ("@userID", MySqlDbType.Int32, userID)
             };
             List<Object[]> result = this.ExecuteQuery(query, parameters);

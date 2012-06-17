@@ -4,7 +4,7 @@ USE `kurs`;
 --
 -- Host: localhost    Database: kurs
 -- ------------------------------------------------------
--- Server version	5.5.22
+-- Server version	5.5.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -80,6 +80,7 @@ DROP TABLE IF EXISTS `tasks`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tasks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `owner` int(11) NOT NULL,
   `templateid` int(11) NOT NULL,
   `timestamp` varchar(45) NOT NULL,
   `depth` int(11) NOT NULL DEFAULT '0',
@@ -97,7 +98,7 @@ CREATE TABLE `tasks` (
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
-INSERT INTO `tasks` VALUES (1,5,'04.04.2012',1,'closed',18,100,5168),(2,3,'05.04.2012',2,'open',0,0,0),(3,2,'11.04.2012',0,'open',0,0,0),(4,3,'11.04.2012',0,'open',0,0,0);
+INSERT INTO `tasks` VALUES (1,1,5,'04.04.2012',1,'closed',18,100,5168),(2,3,3,'05.04.2012',2,'open',0,0,0),(3,1,2,'11.04.2012',0,'open',0,0,0),(4,3,3,'11.04.2012',0,'open',0,0,0);
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,4 +161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-06-15 20:35:59
+-- Dump completed on 2012-06-17 19:17:35
