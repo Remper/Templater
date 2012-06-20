@@ -170,14 +170,21 @@ namespace Templater.Adapters
 
         public bool DeleteTask(int taskID)
         {
-            throw new NotImplementedException();
+            String query = "DELETE FROM tasks WHERE id = @taskID";
+            DBParam[] parameters = new[] {
+                new DBParam ("@taskID", MySqlDbType.Int32, taskID)
+            };
+
+            List<Object[]> result = this.ExecuteQuery(query, parameters);
+
+            return true;
         }
 
         public bool DeleteTemplate(int templateID)
         {
             String query = "DELETE FROM templates WHERE id = @templateID";
             DBParam[] parameters = new[] {
-                new DBParam ("@templateID", MySqlDbType.VarChar, templateID)
+                new DBParam ("@templateID", MySqlDbType.Int32, templateID)
             };
 
             List<Object[]> result = this.ExecuteQuery(query, parameters);
