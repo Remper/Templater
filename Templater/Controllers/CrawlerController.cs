@@ -25,10 +25,10 @@ namespace Templater.Controllers
         [Authorize]
         public ActionResult List()
         {
-            //Получаем список шаблонов для текущего пользователя
-            Template[] templates = Database.Instance.GetTemplates(((User)Session["User"]).UserId);
+            //Получаем список задач для текущего пользователя
+            Task[] tasks = Database.Instance.GetTasks(((User)Session["User"]).UserId);
             //Рендерим 
-            String data = Render.RenderView(this, "List", templates);
+            String data = Render.RenderView(this, "List", tasks);
 
             //Отправляем ответ
             return Json(new { result = true, data = data }, JsonRequestBehavior.AllowGet);

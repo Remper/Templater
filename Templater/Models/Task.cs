@@ -92,7 +92,8 @@ namespace Templater.Models
         public int Progress { get { return this._Progress; } }
         public int Depth { get { return this._Depth; } }
         public int TemplateId { get { return this._TemplateId; } }
-        public string Owner { get { return this._Owner; } } 
+        public string Owner { get { return this._Owner; } }
+        public DateTime TimeStamp { get { return this._Timestamp; } }
         public string GetStatusName()
         {
             return this._Status;

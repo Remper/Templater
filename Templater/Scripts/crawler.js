@@ -52,8 +52,8 @@ Logic = {
     },
 
     indexPage: function (params) {
-        //Kurs.Util.sendRequest("Crawler", "List", {}, Controller.loadSucc, Controller.loadFail);
-        //this.pageLoading("index");
+        Kurs.Util.sendRequest("Crawler", "List", {}, Controller.loadSucc, Controller.loadFail);
+        this.pageLoading("index");
     },
 
     errorPage: function (params) {
